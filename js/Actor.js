@@ -1,8 +1,9 @@
 class Actor {
 	//var frame,type,speed,images,x,y;
-	constructor(x,y,imgw,imgh,type) {
-		this.frame = 1;
+	constructor(x,y,imgw,imgh,type,state) {
+		this.frame = 0;
 		this.type = type;
+		this.state = state;
 		this.speed = 0;
 		this.x=x;
 		this.y=y;
@@ -11,27 +12,14 @@ class Actor {
 		this.drawarea = (document.getElementById("canvas")).getContext("2d");
 	}
 	draw(){
-		this.drawarea.fillRect(this.x,this.y,150,100); 
-		//this.x += 5;
-		//this.y += 5;
-		//console.log(""+this.x);
+		if(Images[this.type] && Images[this.type][this.state] && !Array.isArray(Images[this.type][this.state])) 
+			this.drawarea.drawImage(Images[this.type][this.state], this.x, this.y, this.imgWidth, this.imgHeight);
+		else if(Images[this.type] && Images[this.type][this.state] && Array.isArray(Images[this.type][this.state])) 
+			this.drawarea.drawImage(Images[this.type][this.state][this.frame], this.x, this.y, this.imgWidth, this.imgHeight);
 	}
 	update(dt){
 
-		if (input.keyDown['ArrowRight'] === true) {
-			console.log("asda");
-			this.x += 30;
-		}
-		if (input.keyDown['ArrowLeft'] === true) {
-			console.log("asda");
-			this.x -= 30;
-		}
-	}
-	translate(x,y){
-		this.x += x;
-		this.y += y;
 	}
 
 }
-
-// Needs static images
+Images = new Array();
