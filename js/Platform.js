@@ -10,7 +10,7 @@ class Platform extends CollisionBox{
 		if (input.keyDown['d'] === true) {
 			this.x += 5;
 		}
-	};
+	}
 	
 }
-// static images
+Images['platform'] = new Array();

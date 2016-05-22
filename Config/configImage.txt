@@ -1,4 +1,5 @@
 background
+1
 Art/Art/backgrounds/cosmos.png
 player
 12
@@ -18,7 +19,7 @@ tiles
 2
 Art/Art/tiles/ground.png
 Art/Art/tiles/ground_dirt.png
-enemy
+enemy slime
 3
 Art/Art/enemies/slime_normal.png
 Art/Art/enemies/slime_walk.png
@@ -60,7 +61,7 @@ Art/Art/menu/quit0.png
 Art/Art/menu/quit1.png
 Art/Art/menu/OK0.png
 Art/Art/menu/OK1.png
-enemy_fly
+enemy fly
 3
 Art/Art/enemies/fly_normal.png
 Art/Art/enemies/fly_fly.png

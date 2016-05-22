@@ -1,4 +1,4 @@
-class Enemy extends Physics{
+class Slime extends Enemy{
 	constructor(x,y,imgw,imgh,h,w,type,state,hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY){
 		super(x,y,imgw,imgh,h,w,type,state,hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY);
 	}
@@ -6,4 +6,4 @@ class Enemy extends Physics{
 	//Enemy need static sound that will be created in init();
 
 }
-// INTERFACE
+Images['slime'] = new Array();
