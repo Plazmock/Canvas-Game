@@ -32,6 +32,7 @@ function main(){
 	draw();
 */
 	lastTime = now;
+	input.clearKeys();
 	requestAnimFrame(main);
 }
 

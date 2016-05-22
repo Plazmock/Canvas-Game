@@ -5,8 +5,8 @@ class Input{
 		this.keyDown = new Array();
 	}
 	clearKeys() {
-		this.keyPress = [];
-		this.keyUp = [];
+		this.keyPress = {};
+		this.keyUp = {};
 	}
 }
 

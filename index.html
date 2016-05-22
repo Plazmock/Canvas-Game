@@ -4,19 +4,20 @@
 	<meta charset="utf-8">
 	<title>The game</title>
 
-	<script src = "js\Input.js"></script>
-	<script src = "js\Actor.js"></script>
-	<script src = "js\CollisionBox.js"></script>
-	<script src = "js\Physics.js"></script>
-	<script src = "js\Player.js"></script>
-	<script src = "js\Enemy.js"></script>
-	<script src = "js\Coin.js"></script>
-	<script src = "js\Platform.js"></script>
-	<script src = "js\Cloud.js"></script>
-	<script src = "js\MysticalBox.js"></script>
+	<script src = "js/Input.js"></script>
+	<script src = "js/Actor.js"></script>
+	<script src = "js/CollisionBox.js"></script>
+	<script src = "js/Physics.js"></script>
+	<script src = "js/Player.js"></script>
+	<script src = "js/Enemy.js"></script>
+	<script src = "js/Coin.js"></script>
+	<script src = "js/Platform.js"></script>
+	<script src = "js/Cloud.js"></script>
+	<script src = "js/MysticalBox.js"></script>
+	<script src = "js/FileReader.js"></script>
 
-	<script src = "js\World.js"></script>
-	<script src = "js\mainjs.js"></script>
+	<script src = "js/World.js"></script>
+	<script src = "js/mainjs.js"></script>
 </head>
 <body>
 <canvas id = "canvas" width="800" height="600" style="border: 1px solid #000000"></canvas>
@@ -24,7 +25,12 @@
 <script>
 	
 	lastTime = Date.now();
+	// Create a World object path to the file, that keeps the paths to all the levels.
 	world = new World("Config\\configLevels.txt");
+	// TestFileReading
+	fr = new FileReader("Config\\configLevels.txt");
+	fr.readTextFile("Config\\configLevels.txt");
+
 	a = new Array();
 	a[0] = new CollisionBox(0,0,0,0,0,0,0,0,0);
 	a[1] = new Physics(50,10,0,0,0,0,0,0,0,0,0,0);
