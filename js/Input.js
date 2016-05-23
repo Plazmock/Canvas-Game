@@ -1,12 +1,12 @@
 class Input{
 	constructor() {
-		this.keyPressed = {};
-		this.keyUp = {};
-		this.keyDown = {};
+		this.keyPressed = new Array();
+		this.keyUp = new Array();
+		this.keyDown = new Array();
 	}
 	clearKeys() {
-		this.keyPressed = {};
-		this.keyUp = {};
+		this.keyPressed = new Array();
+		this.keyUp = new Array();
 	}
 }
 

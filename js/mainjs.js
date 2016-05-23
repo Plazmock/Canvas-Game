@@ -11,9 +11,22 @@ var requestAnimFrame = (function(){
 
 function init(){// create world, load media, start main
 	loadImages();
+	initWorld();
 	//loadSounds();
 	// new world
 
+}
+
+function initWorld(){
+	// Create a World object path to the file, that keeps the paths to all the levels.
+	var world = new World("Config//configLevels.txt", 0);
+	world.loadConfigFile();
+	// TestFileReading
+	/*
+	fr = new TextReader();
+	fr.readFile("Config//configLevels.txt");
+	*/
+	
 }
 
 var lastTime,a;

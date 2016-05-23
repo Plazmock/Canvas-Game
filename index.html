@@ -29,11 +29,7 @@
 <script>
 	init();
 	lastTime = Date.now();
-	// Create a World object path to the file, that keeps the paths to all the levels.
-	world = new World("Config//configLevels.txt");
-	// TestFileReading
-	fr = new TextReader();
-	fr.readFile("Config//configLevels.txt");
+	
 
 	a = new Array();
 	a[0] = new Player(100,500,65,90,0,0,'player','dead',0,20000,0,200,200);
