@@ -5,12 +5,12 @@ class Player extends Physics{
 	handleInput(){
 
 		// MOVING X
-		if (input.keyDown['a'] || input.keyDown['ArrowLeft']){
-			if(input.keyDown['d'] || input.keyDown['ArrowRight']) {
-				input.keyDown['a'] = input.keyDown['ArrowLeft'] = false;
+		if (input.keyDown['a'] || input.keyDown['arrowleft']){
+			if(input.keyDown['d'] || input.keyDown['arrowright']) {
+				input.keyDown['a'] = input.keyDown['arrowleft'] = false;
 				return;
 			}
-			else if(!(input.keyPressed['a'] || input.keyPressed['ArrowLeft'])){
+			else if(!(input.keyPressed['a'] || input.keyPressed['arrowleft'])){
 				this.directionX = -1;
 				this.speed = 0;
 				//this.acceleration = ??;
@@ -19,12 +19,12 @@ class Player extends Physics{
 			}
 
 		}		
-		if (input.keyDown['d'] || input.keyDown['ArrowRight']){
-			if(input.keyDown['a'] || input.keyDown['ArrowLeft']) {
-				input.keyDown['d'] = input.keyDown['ArrowRight'] = false;
+		if (input.keyDown['d'] || input.keyDown['arrowright']){	
+			if(input.keyDown['a'] || input.keyDown['arrowleft']) {
+				input.keyDown['d'] = input.keyDown['arrowright'] = false;
 				return;
 			}
-			else if(!(input.keyPressed['d'] || input.keyPressed['ArrowRight'])){
+			else if(!(input.keyPressed['d'] || input.keyPressed['arrowright'])){
 				this.directionX = 1;
 				this.speed = 0;
 				//this.acceleration = ??;
@@ -34,17 +34,17 @@ class Player extends Physics{
 
 
 		}
-		if (input.keyUp['d'] || input.keyUp['ArrowRight']){
-			input.keyUp['d'] = input.keyUp['ArrowRight']  = false;
-			if (!(input.keyDown['a'] || input.keyDown['ArrowLeft'])){
+		if (input.keyUp['d'] || input.keyUp['arrowright']){
+			input.keyUp['d'] = input.keyUp['arrowright']  = false;
+			if (!(input.keyDown['a'] || input.keyDown['arrowleft'])){
 				this.speed = 0;
 				this.directionX = 0;
 				this.state = 'still';
 			}
 		}
-		if (input.keyUp['a'] || input.keyUp['ArrowLeft']){
-			input.keyUp['a'] = input.keyUp['ArrowLeft'] = false;
-			if (!(input.keyDown['d'] || input.keyDown['ArrowRight'])){
+		if (input.keyUp['a'] || input.keyUp['arrowleft']){
+			input.keyUp['a'] = input.keyUp['arrowleft'] = false;
+			if (!(input.keyDown['d'] || input.keyDown['arrowright'])){
 				this.speed = 0;
 				this.directionX = 0;
 				this.state = 'still';

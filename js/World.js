@@ -7,6 +7,9 @@ class World {
 		this.scaleFactor = 0.6;
 		this.arrayOfLevelPaths = "";
 		//console.log(levelsPath);
+		this.map = {
+			
+		};
 
 	}
 
@@ -20,17 +23,32 @@ class World {
 		console.log(this.arrayOfLevelPaths);
 	}
 
-	loadLevel(level){
+	loadLevel(){
 		
 		var parser = new DOMParser();
+		if(this.currLevel >= this.maxLevel){
+			alert("ERROR s01: currLevel >= maxLevel");
+		}else{
+			var nextLevelPath = this.arrayOfLevelPaths[this.currLevel];
+			//console.log(readFile(nextLevelPath, "text"));
+			var doc = parser.parseFromString(readFile(nextLevelPath, "text"), "application/xml");
+			//console.log(doc.getElementsByTagName("map")[0].attributes);
+			//var x = doc.getElementsByTagName("map")[0].attributes;
+			console.log(x.version.value);
 
-		var doc = parser.parseFromString(stringContainingXMLSource, "application/xml");
+			//console.log(doc.documentElement);
+		}
 		
 	}
 
-	nextLevel(level){
-
-	}
+	nextLevel(){
+		this.currLevel += 1;
+		if(this.currLevel >= this.maxLevel){
+			alert("This was the final level, you win");
+		}else{
+			loadLevel();
+		}
+	}	
 
 
 
