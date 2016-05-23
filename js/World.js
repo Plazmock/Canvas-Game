@@ -33,7 +33,7 @@ class World {
 			//console.log(readFile(nextLevelPath, "text"));
 			var doc = parser.parseFromString(readFile(nextLevelPath, "text"), "application/xml");
 			//console.log(doc.getElementsByTagName("map")[0].attributes);
-			//var x = doc.getElementsByTagName("map")[0].attributes;
+			var x = doc.getElementsByTagName("map")[0].attributes;
 			console.log(x.version.value);
 
 			//console.log(doc.documentElement);

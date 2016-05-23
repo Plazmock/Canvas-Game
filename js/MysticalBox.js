@@ -1,6 +1,13 @@
 class MysticalBox extends CollisionBox{
-	constructor(x,y,imgw,imgh,h,w,type,state,hp){
-		super(x,y,imgw,imgh,h,w,type,state,hp);
+	constructor(x,y,imgw,imgh,h,w,hp){
+		super(x,y,imgw,imgh,h,w,'mysticalBox','closed',hp);
 	}	
+	takeHp(){
+		hp--;
+		if (hp == 0) {
+			state = 'opened';
+			//gift();
+		}
+	}
 }
-// static images
+Images['mysticalBox'] = new Array();

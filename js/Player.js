@@ -1,6 +1,6 @@
 class Player extends Physics{
-	constructor(x,y,imgw,imgh,h,w,type,state,hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY){
-		super(x,y,imgw,imgh,h,w,type,state,hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY);
+	constructor(x,y,imgw,imgh,h,w,hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY){
+		super(x,y,imgw,imgh,h,w,'player','still',hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY);
 	}
 	handleInput(){
 
@@ -18,8 +18,8 @@ class Player extends Physics{
 				this.state = 'walk';
 			}
 
-		}		
-		if (input.keyDown['d'] || input.keyDown['arrowright']){	
+		}	
+		if (input.keyDown['d'] || input.keyDown['arrowright']){
 			if(input.keyDown['a'] || input.keyDown['arrowleft']) {
 				input.keyDown['d'] = input.keyDown['arrowright'] = false;
 				return;
@@ -69,4 +69,3 @@ class Player extends Physics{
 
 }
 Images['player'] = new Array();
-Images['player']['walk'] = new Array();
