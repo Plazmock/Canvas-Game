@@ -6,7 +6,7 @@ class Player extends Physics{
 
 		// MOVING X
 		if (input.keyDown['a'] || input.keyDown['arrowleft']){
-			if(input.keyDown['d'] || input.keyDown['arrowright']) {
+			if(input.keyPressed['d'] || input.keyPressed['arrowright']) {
 				input.keyDown['a'] = input.keyDown['arrowleft'] = false;
 				return;
 			}
@@ -17,10 +17,12 @@ class Player extends Physics{
 				//this.gravity = ??;
 				this.state = 'walk';
 			}
+			if(input.keyDown['a']) input.keyPressed['a'] = true;
+			if(input.keyDown['arrowleft']) input.keyPressed['arrowleft'] = true;
 
 		}		
 		if (input.keyDown['d'] || input.keyDown['arrowright']){
-			if(input.keyDown['a'] || input.keyDown['arrowleft']) {
+			if(input.keyPressed['a'] || input.keyPressed['arrowleft']) {
 				input.keyDown['d'] = input.keyDown['arrowright'] = false;
 				return;
 			}
@@ -31,6 +33,8 @@ class Player extends Physics{
 				//this.gravity = ??;
 				this.state = 'walk';
 			}
+			if(input.keyDown['d']) input.keyPressed['d'] = true;
+			if(input.keyDown['arrowright']) input.keyPressed['arrowright'] = true;
 
 
 		}
