@@ -16,10 +16,12 @@
 	<script src = "js/Platform.js"></script>
 	<script src = "js/Cloud.js"></script>
 	<script src = "js/MysticalBox.js"></script>
-	<script src = "js/FileReader.js"></script>
+	<script src = "js/TextReader.js"></script>
 
 	<script src = "js/World.js"></script>
 	<script src = "js/mainjs.js"></script>
+
+
 </head>
 <body>
 <canvas id = "canvas" width="800" height="600" style="border: 1px solid #000000"></canvas>
@@ -28,10 +30,10 @@
 	init();
 	lastTime = Date.now();
 	// Create a World object path to the file, that keeps the paths to all the levels.
-	world = new World("Config\\configLevels.txt");
+	world = new World("Config//configLevels.txt");
 	// TestFileReading
-	fr = new FileReader("Config\\configLevels.txt");
-	fr.readTextFile("Config\\configLevels.txt");
+	fr = new TextReader();
+	fr.readFile("Config//configLevels.txt");
 
 	a = new Array();
 	a[0] = new Player(100,500,65,90,0,0,'player','dead',0,20000,0,200,200);

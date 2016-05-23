@@ -1,11 +1,11 @@
 class Input{
 	constructor() {
-		this.keyPressed = new Array();
-		this.keyUp = new Array();
-		this.keyDown = new Array();
+		this.keyPressed = {};
+		this.keyUp = {};
+		this.keyDown = {};
 	}
 	clearKeys() {
-		this.keyPress = {};
+		this.keyPressed = {};
 		this.keyUp = {};
 	}
 }
@@ -15,11 +15,14 @@ var input = new Input();
 document.addEventListener('keydown', function(e) {
 	//console.log(e.key);
 	//input.keyPressed[e.key] = true;
-	input.keyDown[e.key] = true;
-	input.keyUp[e.key] = false;
+	var key = e.key.toLowerCase();
+
+	input.keyDown[key] = true;
+	input.keyUp[key] = false;
 });
 document.addEventListener('keyup', function(e) {
-	input.keyDown[e.key] = false;
-	input.keyPressed[e.key] = false;
-	input.keyUp[e.key] = true;
+	var key = e.key.toLowerCase();
+	input.keyDown[key] = false;
+	input.keyPressed[key] = false;
+	input.keyUp[key] = true;
 });

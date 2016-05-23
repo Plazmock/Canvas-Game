@@ -13,7 +13,7 @@ class Physics extends CollisionBox{
 		this.speed += this.directionX*this.accelerationX*dt;
 		if (this.speed > this.maxSpeedX) 
 			this.speed = this.maxSpeedX;
-		console.log("speed: "+this.speed);
+		//console.log("speed: "+this.speed);
 		this.speedY += this.directionY*this.accelerationY*dt;
 		if (this.speedY > this.maxSpeedY) 
 			this.speedY = this.maxSpeedY;
