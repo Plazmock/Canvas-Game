@@ -20,7 +20,7 @@ class Player extends Physics{
 			if(input.keyDown['a']) input.keyPressed['a'] = true;
 			if(input.keyDown['arrowleft']) input.keyPressed['arrowleft'] = true;
 
-		}		
+		}	
 		if (input.keyDown['d'] || input.keyDown['arrowright']){
 			if(input.keyPressed['a'] || input.keyPressed['arrowleft']) {
 				input.keyDown['d'] = input.keyDown['arrowright'] = false;

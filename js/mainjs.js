@@ -21,6 +21,7 @@ function initWorld(){
 	// Create a World object path to the file, that keeps the paths to all the levels.
 	var world = new World("Config//configLevels.txt", 0);
 	world.loadConfigFile();
+	world.loadLevel();
 	// TestFileReading
 	/*
 	fr = new TextReader();
