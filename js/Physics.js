@@ -10,21 +10,35 @@ class Physics extends CollisionBox{
 		this.maxSpeedY = maxSpeedY;
 	}
 	update_speed(dt){
-		this.speed += this.directionX*this.accelerationX*dt;
-		if (this.speed > this.maxSpeedX) 
-			this.speed = this.maxSpeedX;
-		//console.log("speed: "+this.speed);
-		this.speedY += this.directionY*this.accelerationY*dt;
+
+		this.speed = Math.min(this.speed + this.accelerationX*dt,this.maxSpeedX);
+		this.speedY -= this.directionY*this.accelerationY*dt;
 		if (this.speedY > this.maxSpeedY) 
 			this.speedY = this.maxSpeedY;
+		if (this.speedY < 0) {
+			this.directionY = -1;
+			this.speedY = 0;
+		}
+
 	}
 	move(dt){
-		var moved = Math.min(this.speed*dt - this.accelerationX*dt*dt, this.maxSpeedX*dt);
-		if (moved < 0) moved *= -1;
+		var moved = Math.min(Math.abs(this.speed*dt - this.accelerationX*dt*dt), this.maxSpeedX*dt);
 		this.x += this.directionX*moved;
+		if(this.x < 0) this.x = 0;
+		if(this.x > 840 - this.width)
+			this.x = 840 - this.width;
 
-		moved = Math.min(this.speedY*dt - this.accelerationY*dt*dt, this.maxSpeedY*dt);
-		if (moved < 0) moved *= -1;
-		this.y += this.directionY*moved;
+		moved = Math.min(Math.abs(this.speedY*dt - this.accelerationY*dt*dt), this.maxSpeedY*dt);
+		this.y -= this.directionY*moved;
+		if(this.y < 0) {
+			this.y = 0;
+			this.speedY = 0;
+			this.directionY = -1;
+		}
+		if(this.y > 560 - this.height){ 
+			this.y = 560 - this.height;
+			this.speedY = 0;
+			this.directionY = 0;
+		}
 	}
 }
