@@ -2,6 +2,8 @@ class Player extends Physics{
 	constructor(x,y,imgw,imgh,h,w,hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY,jumpStartSpeed){
 		super(x,y,imgw,imgh,h,w,'player','still',hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY);
 		this.jumpStartSpeed = jumpStartSpeed;
+		this.dead = false;
+		this.completelyDead = false;
 	}
 	handleInput(){
 
@@ -12,7 +14,6 @@ class Player extends Physics{
 			}
 			else if(!(input.keyPressed['a'] || input.keyPressed['arrowleft'])){
 				this.directionX = -1;
-				//console.log("FUCKKKK 1");
 				this.speed = 0;
 				if(this.directionY == 0){
 					this.state = 'walk';
@@ -28,7 +29,6 @@ class Player extends Physics{
 			}
 			else if(!(input.keyPressed['d'] || input.keyPressed['arrowright'])){
 				this.directionX = 1;
-				//console.log("FUCKKKK 2");
 				this.speed = 0;
 				if(this.directionY == 0){
 					this.state = 'walk';
@@ -73,17 +73,96 @@ class Player extends Physics{
 
 	}
 
-	collideWithTerrain(x){};
+	collideWTerrain(terrain){};
+	collideWEnemy(enemy){
+
+		if (enemy.dead) return;
+
+		// if player attack enemy from above
+		if (this.y + this.height < enemy.y + enemy.height){
+			enemy.die();
+			sound_events_to_play[player_jump] = true;
+			
+		}
+		else{
+			this.die();
+		}
+
+	}
+	getCoin(coin){};
+
+	die(){
+		// lives--
+		this.bounce();
+	}
 	
 	update(dt){
 		this.handleInput();
 		this.move(dt);
+		//this.checkCollisions();
 		this.update_speed(dt);
-
 	}
 
-	//Player need static sound that will be created in init();
+	checkCollisions(){
+		if(!this.dead) return;
 
+		var posI,posJ;
+    	var collide = false;
+
+	    // check if collide with close objects
+	    for (i = posI - 1; i <= posI + 1; i++){
+	        for(j = posJ - 1; j <= posJ + 1; j++){
+	            if (i < 0 || i >= GRID_HEIGHT || j < 0 || j >= GRID_WIDTH) continue; // world ' out of bounds ' ?
+				
+				for (actor in grid[i][j]){
+
+					if (this == actor || !(actor instanceof CollisionBox)) continue;
+
+					if (this.overlap(actor)){
+						if (actor.type == 'platform'){
+							this.collideWTerrain(actor);
+						}
+						if (actor.type == 'coin'){
+							this.getCoin(actor);
+						}
+						if (actor instanceof Enemy){
+							this.collideWEnemy();
+							if (this.dead) reaturn; //////////
+						}
+/*
+						if (exit && !coins_to_collect){
+							sound_events_to_play[exit_door] = true;
+							end_level = true;
+						}
+*/
+					}
+					
+				}
+	        }
+	    }
+	    //check for any floor (not necessarily stable)
+	    //
+
+	    if(this.dead || posI >= GRID_HEIGHT - 1 || this.directionY != 0) return;
+
+	    var floor = NULL;
+	    if(posI + 1 < GRID_HEIGHT && grid[posI + 1][posJ][0] && (grid[posI + 1][posJ][0].type == 'platform' || grid[posI + 1][posJ][0].type == 'mysticalBox')
+	            && grid[posI + 1][posJ][0].y <= this.y + this.height + 1)
+	    {
+	        floor = grid[posI + 1][posJ][0];
+	    }
+	    if(!floor && this.directionY == 0)
+	    {
+	        this.speedY = 0;
+	        this.directionY = -1;
+	    }
+	    else if (floor)
+	    {
+	        this.y = floor.y - this.height - 1;
+	        this.speedY = 0;
+	    }
+	}
 
 }
+
 Images['player'] = new Array();

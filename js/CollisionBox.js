@@ -5,5 +5,16 @@ class CollisionBox extends Actor {
 		this.height = h;
 		this.hp = hp;
 	}
+
+	overlap(ob){
+   		if (this.x + this.width < ob.x
+	        || this.x > ob.x + ob.width
+	        || this.y + this.height < ob.y
+	        || this.y > ob.y + ob.height)
+
+	        return false;
+
+    	return true;
+	}
 }
 // INTERFACE
