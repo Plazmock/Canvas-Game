@@ -89,6 +89,8 @@ class World {
 		var layerByLines = mapFileAsXML.getElementsByTagName("data")[0].firstChild.textContent.split(/\r?\n/);
 		layerByLines.splice(0,1);
 
+
+		var sf = this.scaleFactor;
 		for(var i = 0; i < this.map.height; i++ ) {
 			var currLine = layerByLines[i].match(/\d+/g);
 			for(var j = 0; j < this.map.width; j++){
@@ -97,8 +99,8 @@ class World {
 				var obj = currLine[j];
 				if(obj != 0){
 					// the width and height of the object, both image and collisionbox since they are the same in the map
-					var width = this.tiles[obj-1].attributes[2].value;
-					var height = this.tiles[obj-1].attributes[3].value; 
+					var width = this.tiles[obj-1].attributes[2].value * sf;
+					var height = this.tiles[obj-1].attributes[3].value * sf; 
 				}
 
 				switch(obj){
@@ -109,7 +111,7 @@ class World {
 						this.level[i][j][0] = new Platform(j*width, i*height, width, height, height, width, "ground", 0);
 						break;
 					case '2':
-						this.level[i][j][0] = null;
+						this.level[i][j][0] = new Platform(j*width, i*height, width, height, height, width, "dirt", 0);
 						break;
 					case '3':
 						this.level[i][j][0] = null;

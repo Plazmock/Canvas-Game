@@ -46,7 +46,7 @@ function main(){
 		for(var j = 0; j < world.map.width; j++){
 			for(var k = 0; k < world.level[i][j].length; k++){
 				if( world.level[i][j][k] != null){
-					console.log(world.level[i][j][k]);
+					//console.log(world.level[i][j][k]);
 					world.level[i][j][k].update(dt);
 					world.level[i][j][k].draw();
 				}
