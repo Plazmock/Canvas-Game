@@ -89,12 +89,11 @@ class World {
 		var layerByLines = mapFileAsXML.getElementsByTagName("data")[0].firstChild.textContent.split(/\r?\n/);
 		layerByLines.splice(0,1);
 
-		
 		document.write("<br>");
-		//var layerByLines = layer1;
 		
 		//console.log(layerByLines);
 
+		console.log(this.tiles[0]);
 		for(var i = 0; i < this.map.height; i++ ) {
 			var currLine = layerByLines[i].match(/\d+/g);
 			for(var j = 0; j < this.map.width; j++){
@@ -105,7 +104,8 @@ class World {
 						this.level[i][j][0] = null;
 						break;
 					case '1':
-						this.level[i][j][0] = new Platform(x,y,imgw,imgh,h,w,state,hp);
+
+						//this.level[i][j][0] = new Platform(x,y,imgw,imgh,h,w,state,hp);
 						break;
 					case '2':
 						this.level[i][j][0] = null;
