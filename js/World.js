@@ -10,7 +10,7 @@ class World {
 		this.map = {
 			// example attribute after the map has been loaded
 			// version= 1.0, orientation=orthogonal, renderorder=right-down, width=25, height=13",
-			// tilewidth=70, tileheight=70, nextobjectid=1, canvasWidth=1050, canvasHeight=546, scaleFactor=0.6 
+			// tilewidth=42, tileheight=42, nextobjectid=1, canvasWidth=1050, canvasHeight=546, scaleFactor=0.6 
 		};
 		this.tiles = null;
 		// level is [][][];
@@ -65,8 +65,12 @@ class World {
 		for (var i = 0; i < x.length; i++ ){
 			this.map[x[i].name] = x[i].value;
 		} 
-		this.map['canvasWidth'] = this.map.width * this.map.tilewidth * this.scaleFactor;
-		this.map['canvasHeight'] = this.map.height * this.map.tileheight * this.scaleFactor;
+		this.map.tilewidth *= this.scaleFactor;
+		this.map.tileheight *= this.scaleFactor;
+		TILE = this.map.tilewidth;
+		this.map['canvasWidth'] = this.map.width * this.map.tilewidth;
+		this.map['canvasHeight'] = this.map.height * this.map.tileheight;
+
 	}
 	loadTilesetInfo(mapFileAsXML){
 		this.tiles = mapFileAsXML.getElementsByTagName("tileset");
@@ -158,14 +162,3 @@ class World {
 	}	
 }
 
-/*
-class Map{
-	// Info will be loaded in 
-	//version="1.0", orientation="orthogonal", renderorder="right-down", width="25", height="13", tilewidth="70", tileheight="70", nextobjectid="1" 
-	constructor(version);
-	this.version = "not yet loaded";
-	//orientation :"not yet loaded";
-};
-*/
-
-// Needs static images
