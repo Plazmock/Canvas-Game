@@ -1,5 +1,5 @@
 var MENU = true;
 var MUTED = false;
 var PAUSED = false;
-
-var world;
+var TILE = 42;
+//var world;

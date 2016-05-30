@@ -16,5 +16,13 @@ class CollisionBox extends Actor {
 
     	return true;
 	}
+	getIPosition(){
+		return (this.y + this.height / 2) / TILE;
+	}
+	getJPosition(){
+		return (this.x + this.width / 2) / TILE;
+	}
+	updateGridPosition(){};
 }
+
 // INTERFACE

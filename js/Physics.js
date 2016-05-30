@@ -22,7 +22,7 @@ class Physics extends CollisionBox{
 
 	}
 	move(dt){
-		var moved = Math.min(Math.abs(this.speed*dt - this.accelerationX*dt*dt), this.maxSpeedX*dt);
+		var moved = Math.min(Math.abs(this.speed*dt + this.accelerationX*dt*dt), this.maxSpeedX*dt);
 		this.x += this.directionX*moved;
 		if(this.x < 0) this.x = 0;
 		if(this.x > 840 - this.width){

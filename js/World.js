@@ -108,25 +108,25 @@ class World {
 						this.level[i][j][0] = null;
 						break;
 					case '1':							
-						this.level[i][j][0] = new Platform(j*width, i*height, width, height, height, width, "ground", 0);
+						this.level[i][j][0] = new Platform(j*TILE, i*TILE, width, height, height, width, "ground", 0);
 						break;
 					case '2':
-						this.level[i][j][0] = new Platform(j*width, i*height, width, height, height, width, "dirt", 0);
+						this.level[i][j][0] = new Platform(j*TILE, i*TILE, width, height, height, width, "dirt", 0);
 						break;
 					case '3':
-						this.level[i][j][0] = null;
+						this.level[i][j][0] = new Player(j*TILE, i*TILE, width, height, height, width,0,1000,1250,300,700,630);;
 						break;
 					case '4':
-						this.level[i][j][0] = null;
+						this.level[i][j][0] = new Slime(j*TILE, i*TILE, width, height, height, width,0, 800, 1250, 250, 600);
 						break;
 					case '5':
-						this.level[i][j][0] = null;
+						this.level[i][j][0] = new Coin(j*TILE, i*TILE, width, height, height, width, 0);
 						break;
 					case '6':
 						this.level[i][j][0] = null;
 						break;
 					case '7':
-						this.level[i][j][0] = null;
+						this.level[i][j][0] = new Fly(j*TILE, i*TILE, width, height, height, width,0, 1100, 1250, 350, 700);
 						break;
 				}
 			}

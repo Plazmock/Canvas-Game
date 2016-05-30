@@ -36,10 +36,10 @@ function main(){
 	var dt = (now - lastTime) / 1000.0;
 	
 	document.getElementById("canvas").getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-	for(var i = 0; i < a.length; i++){
+	/*for(var i = 0; i < a.length; i++){
 		a[i].update(dt);
 		a[i].draw();
-	}
+	}*/
 // level - > load next lvl if curr completed
 // menu ? 
 	for(var i = 0; i < world.map.height; i++ ) {
