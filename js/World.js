@@ -93,24 +93,32 @@ class World {
 		
 		//console.log(layerByLines);
 
-		console.log(this.tiles[0]);
+
+		
 		for(var i = 0; i < this.map.height; i++ ) {
 			var currLine = layerByLines[i].match(/\d+/g);
 			for(var j = 0; j < this.map.width; j++){
-				document.write(currLine[j] + " ");
+				//document.write(currLine[j] + " ");
+				
 				var obj = currLine[j];
+				if(obj != 0){
+					// the width and height of the object, both image and collisionbox since they are the same in the map
+					var width = this.tiles[obj-1].attributes[2].value;
+					var height = this.tiles[obj-1].attributes[3].value; 
+				}
+
 				switch(obj){
 					case '0':
 						this.level[i][j][0] = null;
 						break;
-					case '1':
-
+					case '1':							
 						//this.level[i][j][0] = new Platform(x,y,imgw,imgh,h,w,state,hp);
 						break;
 					case '2':
 						this.level[i][j][0] = null;
 						break;
 					case '3':
+
 						this.level[i][j][0] = null;
 						break;
 					case '4':
@@ -128,7 +136,7 @@ class World {
 				}
 
 			}
-			document.write("<br>");
+			//document.write("<br>");
 		}
 
 		/*
