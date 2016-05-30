@@ -19,7 +19,7 @@ function init(){// create world, load media, start main
 
 function initWorld(){
 	// Create a World object path to the file, that keeps the paths to all the levels.
-	var world = new World("Config//configLevels.txt", 0);
+	world = new World("Config//configLevels.txt", 0);
 	world.loadConfigFile();
 	world.loadLevel();
 	// TestFileReading
@@ -27,7 +27,7 @@ function initWorld(){
 	fr = new TextReader();
 	fr.readFile("Config//configLevels.txt");
 	*/
-	
+		
 }
 
 var lastTime,a;
@@ -42,11 +42,23 @@ function main(){
 	}
 // level - > load next lvl if curr completed
 // menu ? 
+	for(var i = 0; i < world.map.height; i++ ) {
+		for(var j = 0; j < world.map.width; j++){
+			for(var k = 0; k < world.level[i][j].length; k++){
+				if( world.level[i][j][k] != null){
+					console.log(world.level[i][j][k]);
+					world.level[i][j][k].update(dt);
+					world.level[i][j][k].draw();
+				}
+			}
+		}
+	}	
+
 /*	
 	draw();
 */
 	lastTime = now;
-	//input.clearKeys();
+	input.clearKeys();
 	requestAnimFrame(main);
 }
 

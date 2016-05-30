@@ -56,6 +56,7 @@ class World {
 		
 	}
 
+
 	loadMapInfo(mapFileAsXML){
 		// x is the map element
 		var x = mapFileAsXML.getElementsByTagName("map")[0].attributes;
@@ -72,7 +73,6 @@ class World {
 		for (var i = 0; i < this.tiles.length; i++ ){
 			//console.log(this.tiles[i]);
 		}
-
 	}
 
 
@@ -89,12 +89,6 @@ class World {
 		var layerByLines = mapFileAsXML.getElementsByTagName("data")[0].firstChild.textContent.split(/\r?\n/);
 		layerByLines.splice(0,1);
 
-		document.write("<br>");
-		
-		//console.log(layerByLines);
-
-
-		
 		for(var i = 0; i < this.map.height; i++ ) {
 			var currLine = layerByLines[i].match(/\d+/g);
 			for(var j = 0; j < this.map.width; j++){
@@ -112,13 +106,12 @@ class World {
 						this.level[i][j][0] = null;
 						break;
 					case '1':							
-						//this.level[i][j][0] = new Platform(x,y,imgw,imgh,h,w,state,hp);
+						this.level[i][j][0] = new Platform(j*width, i*height, width, height, height, width, "ground", 0);
 						break;
 					case '2':
 						this.level[i][j][0] = null;
 						break;
 					case '3':
-
 						this.level[i][j][0] = null;
 						break;
 					case '4':
@@ -134,9 +127,7 @@ class World {
 						this.level[i][j][0] = null;
 						break;
 				}
-
 			}
-			//document.write("<br>");
 		}
 
 		/*
