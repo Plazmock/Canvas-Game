@@ -13,7 +13,7 @@ class Slime extends Enemy{
 	    {
 	        for(j = posJ - 1; j <= posJ + 1; j++)
 	        {
-	            if (i < 0 || i >= GRID_HEIGHT || j < 0 || j >= GRID_WIDTH) continue; // world ' out of bounds ' ?
+	            if (i < 0 || i >= world.map.gridHeight || j < 0 || j >= world.map.gridWidth) continue; // world ' out of bounds ' ?
 				for (actor in grid[i][j])
 				{
 					if ((actor.type == 'platform' || actor.type == 'mysticalBox') && this.overlap(actor))
@@ -43,9 +43,9 @@ class Slime extends Enemy{
 	    }
 	    terra = null;
 	    //check for any floor
-	    if(posI >= GRID_HEIGHT - 1) return;
+	    if(posI >= world.map.gridHeight - 1) return;
 
-	    if(posI + 1 < GRID_HEIGHT && grid[posI + 1][posJ][0] && (grid[posI + 1][posJ][0].type == 'platform' || grid[posI + 1][posJ][0].type == 'mysticalBox')
+	    if(posI + 1 < world.map.gridHeight && grid[posI + 1][posJ][0] && (grid[posI + 1][posJ][0].type == 'platform' || grid[posI + 1][posJ][0].type == 'mysticalBox')
 	            && grid[posI + 1][posJ][0].y <= this.y + this.height + 1)
 	    {
 	        terra = grid[posI + 1][posJ][0];
@@ -70,9 +70,6 @@ class Slime extends Enemy{
 
 	}
 
-	collideWPlayer(){
-		
-	}
 	//Enemy need static sound that will be created in init();
 
 }

@@ -100,7 +100,8 @@ class Player extends Physics{
 		this.handleInput();
 		this.move(dt);
 		//this.checkCollisions();
-		this.update_speed(dt);
+		this.updateSpeed(dt);
+		console.log(this.posGridI);
 	}
 
 	checkCollisions(){
@@ -112,9 +113,9 @@ class Player extends Physics{
 	    // check if collide with close objects
 	    for (i = posI - 1; i <= posI + 1; i++){
 	        for(j = posJ - 1; j <= posJ + 1; j++){
-	            if (i < 0 || i >= GRID_HEIGHT || j < 0 || j >= GRID_WIDTH) continue; // world ' out of bounds ' ?
+	            if (i < 0 || i >= world.map.gridHeight || j < 0 || j >= world.map.gridWidth) continue; // world ' out of bounds ' ?
 				
-				for (actor in grid[i][j]){
+				for (actor in world.level[i][j]){
 
 					if (this == actor || !(actor instanceof CollisionBox)) continue;
 
@@ -143,13 +144,13 @@ class Player extends Physics{
 	    //check for any floor (not necessarily stable)
 	    //
 
-	    if(this.dead || posI >= GRID_HEIGHT - 1 || this.directionY != 0) return;
+	    if(this.dead || posI >= world.map.gridHeight - 1 || this.directionY != 0) return;
 
 	    var floor = NULL;
-	    if(posI + 1 < GRID_HEIGHT && grid[posI + 1][posJ][0] && (grid[posI + 1][posJ][0].type == 'platform' || grid[posI + 1][posJ][0].type == 'mysticalBox')
-	            && grid[posI + 1][posJ][0].y <= this.y + this.height + 1)
+	    if(posI + 1 < world.map.gridHeight && world.level[posI + 1][posJ][0] && (world.level[posI + 1][posJ][0].type == 'platform' || world.level[posI + 1][posJ][0].type == 'mysticalBox')
+	            && world.level[posI + 1][posJ][0].y <= this.y + this.height + 1)
 	    {
-	        floor = grid[posI + 1][posJ][0];
+	        floor = world.level[posI + 1][posJ][0];
 	    }
 	    if(!floor && this.directionY == 0)
 	    {

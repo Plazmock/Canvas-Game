@@ -9,7 +9,7 @@ class Physics extends CollisionBox{
 		this.maxSpeedX = maxSpeedX;
 		this.maxSpeedY = maxSpeedY;
 	}
-	update_speed(dt){
+	updateSpeed(dt){
 
 		this.speed = Math.min(this.speed + this.accelerationX*dt,this.maxSpeedX);
 		this.speedY -= this.directionY*this.accelerationY*dt;
