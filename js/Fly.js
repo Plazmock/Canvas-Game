@@ -1,71 +1,53 @@
 class Fly extends Enemy{
 	constructor(x,y,imgw,imgh,h,w,hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY){
-		super(x,y,imgw,imgh,h,w,'slime','walk',hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY);
+		super(x,y,imgw,imgh,h,w,'fly','fly',hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY);
+		this.posYBeg = y;
+		this.rangeSin = 90;
+		this.directionX = Math.random() - .5  < 0 ? -1 : 1; 
 	}
 	collideWTerrain(){
+	    var posI = this.getIPosition();
+	    var posJ = this.getJPosition();
 
-	    var posI,posJ;
-	    var terra = null;
 	    // check if collide with close objects
-	    for (i = posI - 1; i <= posI + 1; i++)
+	    for (var i = posI - 1; i <= posI + 1; i++)
 	    {
-	        for(j = posJ - 1; j <= posJ + 1; j++)
+	        for(var j = posJ - 1; j <= posJ + 1; j++)
 	        {
-	            if (i < 0 || i >= world.level_HEIGHT || j < 0 || j >= world.map['width']) continue; // world ' out of bounds ' ?
-				for (actor in world.level[i][j])
-				{
-					if ((actor.type == 'platform' || actor.type == 'mysticalBox') && this.overlap(actor))
+	            if (i < 0 || i >= world.map['height'] || j < 0 || j >= world.map['width']) continue; // world ' out of bounds ' ?
+				var fly = this;
+				world.level[i][j].forEach(function(actor){
+					if ((actor.type == 'platform' || actor.type == 'mysticalBox') && fly.overlap(actor))
 					{
-						terra = actor;
-					/*	if(i_grid < terra -> i_grid && j_grid == terra -> j_grid)
+						if(fly.posGridI < actor.posGridI && posGridJ == actor.posGridJ)
 						{
-							pos_rect.y = real_y = terra -> pos_rect.y - pos_rect.h - 1;
-							speed_y = 0;
-							falling = false;
+							fly.y = actor.y - fly.height - 1;
+							fly.speedY = 0;
+							fly.directionY = 0;
 						}
-						else if(i_grid == terra -> i_grid && !falling)
+						else if(fly.posGridI == actor.posGridI && fly.directionY == 0)
 						{
-							if (j_grid < terra -> j_grid)
+							if (fly.posGridJ < actor.posGridJ)
 							{
-								pos_rect.x = real_x = terra -> pos_rect.x - pos_rect.w - 1;
+								fly.x = actor.x - fly.width - 1;
 							}
 							else
 							{
-								pos_rect.x = real_x = terra -> pos_rect.x + terra -> pos_rect.w + 1;
+								fly.x = actor.x + actor.width + 1;
 							}
-							direction *= -1;
-						}*/
+							fly.directionX *= -1;
+						}
 					}
-				}
+				});
 	        }
 	    }
-	    terra = null;
-	    //check for any floor
-	    if(posI >= world.map['height'] - 1) return;
 
-	    if(posI + 1 < world.map['height'] && world.level[posI + 1][posJ][0] && (world.level[posI + 1][posJ][0].type == 'platform' || world.level[posI + 1][posJ][0].type == 'mysticalBox')
-	            && world.level[posI + 1][posJ][0].y <= this.y + this.height + 1)
-	    {
-	        terra = world.level[posI + 1][posJ][0];
-	    }
-
-	   /* if(!terra && !falling)//and type...fallable
-	    {
-	        falling = true;
-	        speed_y = 0;
-	    }else
-	    */
-	    if(!terra)//and type...!fallable
-	    {
-	        direction*=-1;
-	    }
-	    else if (terra)
-	    {
-	        this.y = terra.y - this.height - 1;
-	        speedY = 0;
-	        directionY = 0;
-	    }
-
+	}
+	move(dt){
+		super.move(dt);/*
+		if(!this.dead){
+			//mve sin
+		}*/
 	}
 
 }

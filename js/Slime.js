@@ -2,14 +2,12 @@ class Slime extends Enemy{
 	constructor(x,y,imgw,imgh,h,w,hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY){
 		super(x,y,imgw,imgh,h,w,'slime','walk',hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY);
 		this.directionX = Math.random() - .5  < 0 ? -1 : 1; 
-	}
-	collideWTerrain(){
-
-    	if (this.dead) return;
+	}	collideWTerrain(){
 
 	    var posI = this.getIPosition();
 	    var posJ = this.getJPosition();
 	    // check if collide with close objects
+
 	    for (var i = posI - 1; i <= posI + 1; i++)
 	    {
 	        for(var j = posJ - 1; j <= posJ + 1; j++)
@@ -42,23 +40,29 @@ class Slime extends Enemy{
 	        }
 	    }
 	    var terra = false;
-	    //check for any floor
-	    if(posI >= world.map['height'] - 1) return;
+	    if(!this.dead){
+		    //check for any floor
+		    if(posI >= world.map['height'] - 1) return;
 
-	    if(posJ + this.directionX >= world.map['width'] || posJ + this.directionX < 0) {
-	    	this.directionX *= -1;
-	    	return;
-	    }
+		    if(posJ + this.directionX >= world.map['width'] || posJ + this.directionX < 0) {
+		    	this.directionX *= -1;
+		    	return;
+		    }
 
-	    if(posI + 1 < world.map['height'] && world.level[posI + 1][posJ + this.directionX].length > 0 && 
-	    	(world.level[posI + 1][posJ + this.directionX][0].type == 'platform' || world.level[posI + 1][posJ + this.directionX][0].type == 'mysticalBox')
-	          && world.level[posI + 1][posJ + this.directionX][0].y <= this.y + this.height + 1){
-	        terra = true;
-	    }
-	    if(!terra){
-	        this.directionX *= -1;
-	    }
+		    if(posI + 1 < world.map['height'] && world.level[posI + 1][posJ + this.directionX].length > 0 && 
+		    	(world.level[posI + 1][posJ + this.directionX][0].type == 'platform' || world.level[posI + 1][posJ + this.directionX][0].type == 'mysticalBox')
+		          && world.level[posI + 1][posJ + this.directionX][0].y <= this.y + this.height + 1){
+		        terra = true;
+		    }
+		    if(!terra){
+		        this.directionX *= -1;
+		    }
+		}
+	}
 
+	die(){
+		super.die();
+		//this.height /= 4;
 	}
 
 	//Enemy need static sound that will be created in init();

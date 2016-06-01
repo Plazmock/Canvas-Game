@@ -5,12 +5,13 @@ class Enemy extends Physics{
 		this.fallable = false;
 		this.timeSinceLastFrame = 0;
 	}
-	collideWTerrain(){};
+	//collideWTerrain(){};
 	//Enemy need static sound that will be created in init();
 	die(){
 		this.dead = true;
 		this.directionX = 0;
 		this.bounce();
+		this.state = 'dead';
 	}
 	update(dt){
 		this.move(dt);
@@ -21,6 +22,7 @@ class Enemy extends Physics{
 		this.updateSpeed(dt);
 		this.updateGridPosition();
 	}
+
 	draw(dt){
 
 		if(this.state != 'dead'){
@@ -45,5 +47,7 @@ class Enemy extends Physics{
 		}	
 			
 	}
+	collideWTerrain(){};
+
 }
 // INTERFACE

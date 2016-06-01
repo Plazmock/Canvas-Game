@@ -78,7 +78,6 @@ class Player extends Physics{
 		if(this.posGridI < terra.posGridI){
 	        if(this.posGridJ == terra.posGridJ){
 
-//console.log(this.posGridJ + " " + terra.posGridJ + " " +this.y + " " + terra.y + " " + this.height);
 	            this.y = terra.y - this.height - 1;
 	            this.speedY = 0;
 	            this.directionY = 0;
@@ -109,18 +108,18 @@ class Player extends Physics{
 	    else{
 	       // sound_events_to_play[player_colision] = true;
 	        if(this.posGridJ == terra.posGridJ){
-	            this.y = real_y = terra.y + terra.width + 1;
+	            this.y = terra.y + terra.width + 1;
 	            this.speedY = 0;
 	            this.directionY = -1;
 	        }
-	        else if (this.posGridJ < terra.posGridJ && world.level[posGridI - 1][this.posGridJ].length == 0 || 
+	        else if (this.posGridJ < terra.posGridJ && world.level[this.posGridI - 1][this.posGridJ].length == 0 || 
 	        	(world.level[this.posGridI + 1][this.posGridJ].length > 0 &&
-	        	!(world.level[posGridI - 1][this.posGridJ][0].type == 'platform' || world.level[posGridI - 1][this.posGridJ][0].type == 'mysticalBox'))){
+	        	!(world.level[this.posGridI - 1][this.posGridJ][0].type == 'platform' || world.level[posGridI - 1][this.posGridJ][0].type == 'mysticalBox'))){
 	            this.x = terra.x - this.width - 1;
 	        }
-	        else if (this.posGridJ > terra.posGridJ && world.level[posGridI - 1][this.posGridJ].length == 0 || 
+	        else if (this.posGridJ > terra.posGridJ && world.level[this.posGridI - 1][this.posGridJ].length == 0 || 
 	        	(world.level[this.posGridI + 1][this.posGridJ].length > 0 &&
-	        	!(world.level[posGridI - 1][this.posGridJ][0].type == 'platform' || world.level[posGridI - 1][this.posGridJ][0].type == 'mysticalBox'))){
+	        	!(world.level[this.posGridI - 1][this.posGridJ][0].type == 'platform' || world.level[this.posGridI - 1][this.posGridJ][0].type == 'mysticalBox'))){
 	            this.x = terra.x + terra.width + 1;
 	        }
 	    }
@@ -149,6 +148,7 @@ class Player extends Physics{
 	die(){
 		// lives--
 		this.dead = true;
+		this.state = 'dead';
 		this.directionX = 0;
 		this.bounce();
 	}
@@ -193,46 +193,51 @@ class Player extends Physics{
 
 	checkCollisions(){
 
-		if(this.dead) return;
 		var posI = this.getIPosition();
 		var posJ = this.getJPosition();
     	var collide = false;
 
 	    // check if collide with close objects
-	    for (var i = posI - 1; i <= posI + 1; i++){
-	        for(var j = posJ - 1; j <= posJ + 1; j++){
-	            if (i < 0 || i >= world.map['height'] || j < 0 || j >= world.map['width']) {continue;} // world ' out of bounds ' ?
-				var player = this;
-				world.level[i][j].forEach(function(actor){
-					if (player.dead) {
-						return;
-					}
-					if (!(player === actor) && actor instanceof CollisionBox && player.overlap(actor)){
-						if (actor.type == 'platform'){
-							player.collideWTerrain(actor);
+	    if(!this.dead){
+		    for (var i = posI - 1; i <= posI + 1; i++){
+		        for(var j = posJ - 1; j <= posJ + 1; j++){
+		            if (i < 0 || i >= world.map['height'] || j < 0 || j >= world.map['width']) {continue;} // world ' out of bounds ' ?
+					var player = this;
+					world.level[i][j].forEach(function(actor){
+						if (player.dead) {
+							return;
 						}
-						if (actor instanceof Enemy){
-							player.collideWEnemy(actor);
+						if (!(player === actor) && actor instanceof CollisionBox && player.overlap(actor)){
+							if (actor.type == 'platform'){
+								player.collideWTerrain(actor);
+							}
+							if (actor instanceof Enemy){
+								player.collideWEnemy(actor);
+							}
+							/*
+							if (actor.type == 'coin'){
+								player.getCoin(actor);
+							}
+	/*
+							if (exit && !coins_to_collect){
+								sound_events_to_play[exit_door] = true;
+								end_level = true;
+							}
+	*/ 
 						}
-						/*
-						if (actor.type == 'coin'){
-							player.getCoin(actor);
-						}
-/*
-						if (exit && !coins_to_collect){
-							sound_events_to_play[exit_door] = true;
-							end_level = true;
-						}
-*/ 
-					}
-					
-				});
-	        }
-	    }
+						
+					});
+		        }
+		    }
+		}
+		else{
+			var debug = 0;
+
+		}
 	    //check for any floor (not necessarily stable)
 	    //
 
-	    if(this.dead || posI >= world.map['height'] - 1 || this.directionY != 0) return;
+	    if(posI >= world.map['height'] - 1 || this.directionY != 0) return;
 
 	    var floor = null;
 	    if(posI + 1 < world.map['height'] && world.level[posI + 1][posJ].length > 0 && (world.level[posI + 1][posJ][0].type == 'platform' || world.level[posI + 1][posJ][0].type == 'mysticalBox')
