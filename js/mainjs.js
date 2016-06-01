@@ -19,7 +19,7 @@ function init(){// create world, load media, start main
 
 function initWorld(){
 	// Create a World object path to the file, that keeps the paths to all the levels.
-	world = new World("Config//configLevels.txt", 0);
+	world = new World("Config//configLevels.txt", 2);
 	world.loadConfigFile();
 	world.loadLevel();
 	// TestFileReading
@@ -34,7 +34,7 @@ var lastTime,a;
 function main(){
 	var now = Date.now();
 	var dt = (now - lastTime) / 1000.0;
-	dt = Math.min(dt, 1000.0 / 45);
+	dt = Math.min(dt, 1000.0 / 15);
 	
 	document.getElementById("canvas").getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 
