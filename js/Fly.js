@@ -19,7 +19,7 @@ class Fly extends Enemy{
 				world.level[i][j].forEach(function(actor){
 					if ((actor.type == 'platform' || actor.type == 'mysticalBox') && fly.overlap(actor))
 					{
-						if(fly.posGridI < actor.posGridI && posGridJ == actor.posGridJ)
+						if(fly.posGridI < actor.posGridI && fly.posGridJ == actor.posGridJ)
 						{
 							fly.y = actor.y - fly.height - 1;
 							fly.speedY = 0;

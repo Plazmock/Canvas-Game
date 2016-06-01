@@ -165,11 +165,11 @@ class Player extends Physics{
 
 		if(this.state === 'walk'){
 			this.timeSinceLastFrame += dt;
-			if(this.timeSinceLastFrame > 0.25){
+			if(this.timeSinceLastFrame > 0.075){
 				this.frame += 1;
-				console.log(Images['player'][this.state].length);
+				this.frame %= Images['player'][this.state].length;
 				//console.log(this.frame);
-				this.timeSinceLastFrame -= 0.25;
+				this.timeSinceLastFrame -= 0.075;
 			}	
 		} 
 		if(this.directionX === 1){
