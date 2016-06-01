@@ -6,7 +6,7 @@ class Player extends Physics{
 		this.completelyDead = false;
 	}
 	handleInput(){
-
+		if(this.dead)  return;
 		// MOVING X
 		if (input.keyDown['a'] || input.keyDown['arrowleft']){
 			if(input.keyPressed['d'] || input.keyPressed['arrowright']) {
@@ -73,18 +73,72 @@ class Player extends Physics{
 
 	}
 
-	collideWTerrain(terrain){};
+	collideWTerrain(terra){
+		if(this.posGridI < terra.posGridI){
+	        if(this.posGridJ == terra.posGridJ){
+
+//console.log(this.posGridJ + " " + terra.posGridJ + " " +this.y + " " + terra.y + " " + this.height);
+	            this.y = terra.y - this.height - 1;
+	            this.speedY = 0;
+	            this.directionY = 0;
+	        }
+	        else if (this.posGridJ < terra.posGridJ && world.level[this.posGridI + 1][this.posGridJ].length == 0 || 
+	        	(world.level[this.posGridI + 1][this.posGridJ].length > 0 &&
+	        	!(world.level[this.posGridI + 1][this.posGridJ][0].type == 'platform' || world.level[this.posGridI + 1][this.posGridJ][0].type == 'mysticalBox'))){
+	            //sound_events_to_play[player_colision] = true;
+	            this.x = terra.x - this.width - 1;
+	        }
+	        else if (this.posGridJ > terra.posGridJ && world.level[this.posGridI - 1][this.posGridJ].length == 0 || 
+	        	(world.level[this.posGridI + 1][this.posGridJ].length > 0 &&
+	        	!(world.level[this.posGridI - 1][this.posGridJ][0].type == 'platform' || world.level[this.posGridI - 1][this.posGridJ][0].type == 'mysticalBox'))){
+	           // sound_events_to_play[player_colision] = true;
+	            this.x = terra.x + terra.width + 1;
+	        }
+	    }
+
+	    else if(this.posGridI == terra.posGridI){
+	        //sound_events_to_play[player_colision] = true;
+	        if (this.posGridJ < terra.posGridJ){
+	            this.x = terra.x - this.width - 1;
+	        }
+	        else{
+	            this.x = terra.x + terra.width + 1;
+	        }
+	    }
+	    else{
+	       // sound_events_to_play[player_colision] = true;
+	        if(this.posGridJ == terra.posGridJ){
+	            this.y = real_y = terra.y + terra.width + 1;
+	            this.speedY = 0;
+	            this.directionY = -1;
+	        }
+	        else if (this.posGridJ < terra.posGridJ && world.level[posGridI - 1][this.posGridJ].length == 0 || 
+	        	(world.level[this.posGridI + 1][this.posGridJ].length > 0 &&
+	        	!(world.level[posGridI - 1][this.posGridJ][0].type == 'platform' || world.level[posGridI - 1][this.posGridJ][0].type == 'mysticalBox'))){
+	            this.x = terra.x - this.width - 1;
+	        }
+	        else if (this.posGridJ > terra.posGridJ && world.level[posGridI - 1][this.posGridJ].length == 0 || 
+	        	(world.level[this.posGridI + 1][this.posGridJ].length > 0 &&
+	        	!(world.level[posGridI - 1][this.posGridJ][0].type == 'platform' || world.level[posGridI - 1][this.posGridJ][0].type == 'mysticalBox'))){
+	            this.x = terra.x + terra.width + 1;
+	        }
+	    }
+
+
+	}
 	collideWEnemy(enemy){
 
-		if (enemy.dead) return;
+		if (enemy.dead || this.dead) return;
 
 		// if player attack enemy from above
 		if (this.y + this.height < enemy.y + enemy.height){
+			console.log("Enemy dies");
 			enemy.die();
-			sound_events_to_play[player_jump] = true;
+			//sound_events_to_play[player_jump] = true;
 			
 		}
 		else{
+			console.log("Player dies");
 			this.die();
 		}
 
@@ -93,61 +147,64 @@ class Player extends Physics{
 
 	die(){
 		// lives--
+		this.dead = true;
+		this.directionX = 0;
 		this.bounce();
 	}
 	
 	update(dt){
 		this.handleInput();
 		this.move(dt);
-		//this.checkCollisions();
+		this.checkCollisions();
 		this.updateSpeed(dt);
-		console.log(this.posGridI);
+		this.updateGridPosition();
 	}
 
 	checkCollisions(){
-		if(!this.dead) return;
 
-		var posI,posJ;
+		if(this.dead) return;
+		var posI = this.getIPosition();
+		var posJ = this.getJPosition();
     	var collide = false;
 
 	    // check if collide with close objects
-	    for (i = posI - 1; i <= posI + 1; i++){
-	        for(j = posJ - 1; j <= posJ + 1; j++){
-	            if (i < 0 || i >= world.map.gridHeight || j < 0 || j >= world.map.gridWidth) continue; // world ' out of bounds ' ?
-				
-				for (actor in world.level[i][j]){
-
-					if (this == actor || !(actor instanceof CollisionBox)) continue;
-
-					if (this.overlap(actor)){
+	    for (var i = posI - 1; i <= posI + 1; i++){
+	        for(var j = posJ - 1; j <= posJ + 1; j++){
+	            if (i < 0 || i >= world.map['height'] || j < 0 || j >= world.map['width']) {continue;} // world ' out of bounds ' ?
+				var player = this;
+				world.level[i][j].forEach(function(actor){
+					if (player.dead) {
+						return;
+					}
+					if (!(player === actor) && actor instanceof CollisionBox && player.overlap(actor)){
 						if (actor.type == 'platform'){
-							this.collideWTerrain(actor);
-						}
-						if (actor.type == 'coin'){
-							this.getCoin(actor);
+							player.collideWTerrain(actor);
 						}
 						if (actor instanceof Enemy){
-							this.collideWEnemy();
-							if (this.dead) reaturn; //////////
+							player.collideWEnemy(actor);
+						}
+						/*
+						if (actor.type == 'coin'){
+							player.getCoin(actor);
 						}
 /*
 						if (exit && !coins_to_collect){
 							sound_events_to_play[exit_door] = true;
 							end_level = true;
 						}
-*/
+*/ 
 					}
 					
-				}
+				});
 	        }
 	    }
 	    //check for any floor (not necessarily stable)
 	    //
 
-	    if(this.dead || posI >= world.map.gridHeight - 1 || this.directionY != 0) return;
+	    if(this.dead || posI >= world.map['height'] - 1 || this.directionY != 0) return;
 
-	    var floor = NULL;
-	    if(posI + 1 < world.map.gridHeight && world.level[posI + 1][posJ][0] && (world.level[posI + 1][posJ][0].type == 'platform' || world.level[posI + 1][posJ][0].type == 'mysticalBox')
+	    var floor = null;
+	    if(posI + 1 < world.map['height'] && world.level[posI + 1][posJ].length > 0 && (world.level[posI + 1][posJ][0].type == 'platform' || world.level[posI + 1][posJ][0].type == 'mysticalBox')
 	            && world.level[posI + 1][posJ][0].y <= this.y + this.height + 1)
 	    {
 	        floor = world.level[posI + 1][posJ][0];

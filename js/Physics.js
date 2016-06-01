@@ -25,8 +25,8 @@ class Physics extends CollisionBox{
 		var moved = Math.min(Math.abs(this.speed*dt + this.accelerationX*dt*dt), this.maxSpeedX*dt);
 		this.x += this.directionX*moved;
 		if(this.x < 0) this.x = 0;
-		if(this.x > 840 - this.width){
-			this.x = 840 - this.width;
+		if(this.x > world.map['canvasWidth'] - this.width){
+			this.x = world.map['canvasWidth'] - this.width;
 		}
 
 		moved = Math.min(Math.abs(this.speedY*dt - this.accelerationY*dt*dt), this.maxSpeedY*dt);
@@ -36,8 +36,8 @@ class Physics extends CollisionBox{
 			this.speedY = 0;
 			this.directionY = -1;
 		}
-		if(this.y > 560 - this.height){ 
-			this.y = 560 - this.height;
+		if(this.y > world.map['canvasHeight'] - this.height){ 
+			this.y = world.map['canvasHeight'] - this.height;
 			this.speedY = 0;
 			this.directionY = 0;
 		}
@@ -47,8 +47,8 @@ class Physics extends CollisionBox{
 		var moved = Math.min(Math.abs(this.speed*dt - this.accelerationX*dt*dt), this.maxSpeedX*dt);
 		this.x += this.directionX*moved;
 		if(this.x < 0) this.x = 0;
-		if(this.x > 840 - this.width){
-			this.x = 840 - this.width;
+		if(this.x > world.map['canvasWidth'] - this.width){
+			this.x = world.map['canvasWidth'] - this.width;
 		}
 
 		moved = Math.min(Math.abs(this.speedY*dt - this.accelerationY*dt*dt), this.maxSpeedY*dt);
@@ -58,8 +58,8 @@ class Physics extends CollisionBox{
 			this.speedY = 0;
 			this.directionY = -1;
 		}
-		if(this.y > 560 - this.height){ 
-			this.y = 560 - this.height;
+		if(this.y > world.map['canvasHeight'] - this.height){ 
+			this.y = world.map['canvasHeight'] - this.height;
 			this.speedY = 0;
 			this.directionY = 0;
 		}
@@ -67,7 +67,7 @@ class Physics extends CollisionBox{
 
 	bounce(){
 		this.directionY = 1;
-		this.speedY /= 2.;
+		this.speedY = Math.max(this.speedY / 2, this.maxSpeedY / 3);
 	}
 
 }

@@ -8,11 +8,15 @@ class Enemy extends Physics{
 	//Enemy need static sound that will be created in init();
 	die(){
 		this.dead = true;
+		this.directionX = 0;
 		this.bounce();
 	}
 	update(dt){
 		this.move(dt);
-		//this.collideWTerrain();
+		if(this.x >= world.map['canvasWidth'] - this.width - 1 || this.x <= 1){
+			this.directionX *= -1;
+		}
+		this.collideWTerrain();
 		this.updateSpeed(dt);
 		this.updateGridPosition();
 	}
