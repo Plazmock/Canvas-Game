@@ -19,33 +19,30 @@ class CollisionBox extends Actor {
     	return true;
 	}
 	getIPosition(){
-		return Math.floor((this.y + this.height / 2) / TILE);
+		return Math.floor((this.y + (this.height / 2)) / world.map['tileheight']);
 	}
 	getJPosition(){
-		return Math.floor((this.x + this.width / 2) / TILE);
+		return Math.floor((this.x + (this.width / 2)) / world.map['tilewidth']);
 	}
 	updateGridPosition(){
 
 		var newGridI = this.getIPosition();
     	var newGridJ = this.getJPosition();
 
-     	if ((newGridI == this.posGridI && newGridJ == this.posGridJ)
-        || newGridI < 0 || newGridI >= world.map.gridheight
-        || newGridJ < 0 || newGridJ >= world.map.gridwidth
-        ) return false;
+     	if ((newGridI === this.posGridI && newGridJ === this.posGridJ)
+        	|| newGridI < 0 || newGridI >= world.map['height']
+       		|| newGridJ < 0 || newGridJ >= world.map['width']
+        ) {
+     		return false;
+		}
 
-
-	    for (k = 0; k < grid[this.posGridI][this.posGridJ].lenght; k++)
-	    {
-	        if (grid[this.posGridI][this.posGridJ][k] === this )
-	        {
-	            //delete old one
-	            grid[this.posGridI][this.posGridJ].splice(k, 1);;
-	            grid[newGridI][newGridJ].push(this);
-	            this.posGridI = newGridI;
-	            this.posGridJ = newGridJ;
-	            return true;
-	        }
+		var k = world.level[this.posGridI][this.posGridJ].indexOf(this);
+	    if(k > -1){
+            world.level[this.posGridI][this.posGridJ].splice(k, 1);
+            world.level[newGridI][newGridJ].push(this);
+            this.posGridI = newGridI;
+            this.posGridJ = newGridJ;
+            return true;
 	    }
 	    return false;
 	}

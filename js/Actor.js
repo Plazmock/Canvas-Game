@@ -5,8 +5,8 @@ class Actor {
 		this.type = type;
 		this.state = state;
 		this.speed = 0;
-		this.x=x;
-		this.y=y;
+		this.x = x;
+		this.y = y;
 		this.imgWidth = imgw;
 		this.imgHeight = imgh;
 		this.drawarea = (document.getElementById("canvas")).getContext("2d");

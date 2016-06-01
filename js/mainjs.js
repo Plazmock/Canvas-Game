@@ -34,23 +34,19 @@ var lastTime,a;
 function main(){
 	var now = Date.now();
 	var dt = (now - lastTime) / 1000.0;
+	dt = Math.min(dt, 1000.0 / 15);
 	
 	document.getElementById("canvas").getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-	/*for(var i = 0; i < a.length; i++){
-		a[i].update(dt);
-		a[i].draw();
-	}*/
+
 // level - > load next lvl if curr completed
 // menu ? 
 	for(var i = 0; i < world.map.height; i++ ) {
 		for(var j = 0; j < world.map.width; j++){
-			for(var k = 0; k < world.level[i][j].length; k++){
-				if( world.level[i][j][k] != null){
-					//console.log(world.level[i][j][k]);
-					world.level[i][j][k].update(dt);
-					world.level[i][j][k].draw();
-				}
+			world.level[i][j].forEach(function(obj){
+				obj.update(dt);
+				obj.draw();
 			}
+			);
 		}
 	}	
 
