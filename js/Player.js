@@ -4,6 +4,7 @@ class Player extends Physics{
 		this.jumpStartSpeed = jumpStartSpeed;
 		this.dead = false;
 		this.completelyDead = false;
+		this.timeSinceLastFrame = 0;
 	}
 	handleInput(){
 		if(this.dead)  return;
@@ -143,7 +144,12 @@ class Player extends Physics{
 		}
 
 	}
-	getCoin(coin){};
+	getCoin(coin){
+		if(!coin.taken){
+			coin.taken = true;
+			world.coinsRemaining--;
+		}
+	};
 
 	die(){
 		// lives--
@@ -160,6 +166,36 @@ class Player extends Physics{
 		this.updateSpeed(dt);
 		this.updateGridPosition();
 	}
+
+	draw(dt){
+
+		if(this.state === 'walk'){
+			this.timeSinceLastFrame += dt;
+			if(this.timeSinceLastFrame > 0.075){
+				this.frame += 1;
+				this.frame %= Images['player'][this.state].length;
+				//console.log(this.frame);
+				this.timeSinceLastFrame -= 0.075;
+			}	
+		} 
+		if(this.directionX === 1){
+			this.drawarea.save();
+			this.drawarea.scale(-1,1);
+			this.x *= -1;
+			this.x -= this.imgWidth;
+		}
+
+		super.draw(dt);
+
+		if(this.directionX === 1){
+			this.x += this.imgWidth;
+			this.x *= -1;
+			this.drawarea.restore();
+		}	
+			
+	}
+
+	
 
 	checkCollisions(){
 
@@ -184,7 +220,7 @@ class Player extends Physics{
 							if (actor instanceof Enemy){
 								player.collideWEnemy(actor);
 							}
-							/*
+							
 							if (actor.type == 'coin'){
 								player.getCoin(actor);
 							}

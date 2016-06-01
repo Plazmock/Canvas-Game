@@ -19,7 +19,7 @@ function init(){// create world, load media, start main
 
 function initWorld(){
 	// Create a World object path to the file, that keeps the paths to all the levels.
-	world = new World("Config//configLevels.txt", 2);
+	world = new World("Config//configLevels.txt", 0);
 	world.loadConfigFile();
 	world.loadLevel();
 	// TestFileReading
@@ -37,7 +37,7 @@ function main(){
 	dt = Math.min(dt, 1000.0 / 15);
 	
 	document.getElementById("canvas").getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-
+	console.log(world.coinsRemaining);
 
 // level - > load next lvl if curr completed
 // menu ? 
@@ -45,7 +45,7 @@ function main(){
 		for(var j = 0; j < world.map.width; j++){
 			world.level[i][j].forEach(function(obj){
 				obj.update(dt);
-				obj.draw();
+				obj.draw(dt);
 			});
 		}
 	}	

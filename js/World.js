@@ -15,6 +15,7 @@ class World {
 		this.tiles = null;
 		// level is [][][];
 		this.level = null;
+		this.coinsRemaining = null;
 	}
 
 	loadConfigFile(){
@@ -81,6 +82,7 @@ class World {
 
 
 	loadLayerInfo(mapFileAsXML){
+
 		this.level = new Array();	
 		for(var i = 0; i < this.map.height; i++ ) {
 			this.level[i] = new Array();
@@ -93,7 +95,7 @@ class World {
 		var layerByLines = mapFileAsXML.getElementsByTagName("data")[0].firstChild.textContent.split(/\r?\n/);
 		layerByLines.splice(0,1);
 
-
+		this.coinsRemaining = 0;
 		var sf = this.scaleFactor;
 		for(var i = 0; i < this.map.height; i++ ) {
 			var currLine = layerByLines[i].match(/\d+/g);
@@ -118,19 +120,20 @@ class World {
 						this.level[i][j][0] = new Platform(j*TILE, i*TILE, width, height, height, width, "dirt", 0);
 						break;
 					case '3':
-						this.level[i][j][0] = new Player(j*TILE, i*TILE, width, height, height, width,0,1000,1250,300,700,630);;
+						this.level[i][j][0] = new Player(j*TILE, i*TILE, width, height, height, width,0,700,850,200,550,400);
 						break;
 					case '4':
-						this.level[i][j][0] = new Slime(j*TILE, (i+1)*TILE - height - 1, width, height, height, width,0, 500, 1250, 150, 600);
+						this.level[i][j][0] = new Slime(j*TILE, (i+1)*TILE - height - 1, width, height, height, width,0, 500, 1250, 80, 600);
 						break;
 					case '5':
 						this.level[i][j][0] = new Coin(j*TILE, i*TILE, width, height, height, width, 0);
+						this.coinsRemaining++;
 						break;
 					case '6':
-						//this.level[i][j][0] = null;
+						this.level[i][j][0] = new Exit(j*TILE, i*TILE, width, height, height, width, "midClosed", 0);
 						break;
 					case '7':
-						this.level[i][j][0] = new Fly(j*TILE, i*TILE, width, height, height, width,0, 500, 1250, 150, 600);
+						this.level[i][j][0] = new Fly(j*TILE, i*TILE, width, height, height, width,0, 500, 1250, 110, 700);
 						break;
 				}
 			}
