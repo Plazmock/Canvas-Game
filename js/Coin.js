@@ -11,7 +11,8 @@ class Coin extends CollisionBox{
 		else {
 			this.timeSinceLastFrame += dt;
 			if(this.timeSinceLastFrame > 0.1){
-				this.frame += 1
+				this.frame += 1;
+				this.frame %= Images['coin']['spin'].length;
 				this.timeSinceLastFrame -= 0.1;
 			}
 			super.draw(dt);

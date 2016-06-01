@@ -34,7 +34,7 @@ var lastTime,a;
 function main(){
 	var now = Date.now();
 	var dt = (now - lastTime) / 1000.0;
-	dt = Math.min(dt, 1000.0 / 45);
+	dt = Math.min(dt, 1000.0 / 15);
 	
 	document.getElementById("canvas").getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 
@@ -45,7 +45,7 @@ function main(){
 		for(var j = 0; j < world.map.width; j++){
 			world.level[i][j].forEach(function(obj){
 				obj.update(dt);
-				obj.draw();
+				obj.draw(dt);
 			});
 		}
 	}	

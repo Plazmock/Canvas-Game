@@ -4,6 +4,7 @@ class Player extends Physics{
 		this.jumpStartSpeed = jumpStartSpeed;
 		this.dead = false;
 		this.completelyDead = false;
+		this.timeSinceLastFrame = 0;
 	}
 	handleInput(){
 		if(this.dead)  return;
@@ -159,6 +160,36 @@ class Player extends Physics{
 		this.updateSpeed(dt);
 		this.updateGridPosition();
 	}
+
+	draw(dt){
+
+		if(this.state === 'walk'){
+			this.timeSinceLastFrame += dt;
+			if(this.timeSinceLastFrame > 0.25){
+				this.frame += 1;
+				console.log(Images['player'][this.state].length);
+				//console.log(this.frame);
+				this.timeSinceLastFrame -= 0.25;
+			}	
+		} 
+		if(this.directionX === 1){
+			this.drawarea.save();
+			this.drawarea.scale(-1,1);
+			this.x *= -1;
+			this.x -= this.imgWidth;
+		}
+
+		super.draw(dt);
+
+		if(this.directionX === 1){
+			this.x += this.imgWidth;
+			this.x *= -1;
+			this.drawarea.restore();
+		}	
+			
+	}
+
+	
 
 	checkCollisions(){
 
