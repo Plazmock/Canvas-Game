@@ -34,9 +34,10 @@ var lastTime,a;
 function main(){
 	var now = Date.now();
 	var dt = (now - lastTime) / 1000.0;
-	dt = Math.min(dt, 1000.0 / 15);
+	dt = Math.min(dt, 1000.0 / 45);
 	
 	document.getElementById("canvas").getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+
 
 // level - > load next lvl if curr completed
 // menu ? 
@@ -45,13 +46,12 @@ function main(){
 			world.level[i][j].forEach(function(obj){
 				obj.update(dt);
 				obj.draw();
-			}
-			);
+			});
 		}
 	}	
 
 /*	
-	draw();
+	draw(dt);
 */
 	lastTime = now;
 	requestAnimFrame(main);

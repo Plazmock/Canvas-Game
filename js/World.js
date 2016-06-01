@@ -130,7 +130,7 @@ class World {
 						//this.level[i][j][0] = null;
 						break;
 					case '7':
-						this.level[i][j][0] = new Fly(j*TILE, i*TILE, width, height, height, width,0, 1100, 1250, 350, 700);
+						//this.level[i][j][0] = new Fly(j*TILE, i*TILE, width, height, height, width,0, 1100, 1250, 350, 700);
 						break;
 				}
 			}
