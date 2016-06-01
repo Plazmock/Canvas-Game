@@ -235,12 +235,13 @@ class Player extends Physics{
 							if (actor.type == 'coin'){
 								player.getCoin(actor);
 							}
-	/*
-							if (exit && !coins_to_collect){
-								sound_events_to_play[exit_door] = true;
-								end_level = true;
+	
+							if (actor.type == 'exit' && world.coinsRemaining <= 0){
+								//sound_events_to_play[exit_door] = true;
+								//end_level = true;
+								world.nextLevel();
 							}
-	*/ 
+	
 						}
 						
 					});

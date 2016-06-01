@@ -160,7 +160,7 @@ class World {
 		if(this.currLevel > this.maxLevel){
 			alert("This was the final level, you win");
 		}else{
-			loadLevel();
+			this.loadLevel();
 		}
 	}	
 }
