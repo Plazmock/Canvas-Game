@@ -108,18 +108,18 @@ class Player extends Physics{
 	    else{
 	       // sound_events_to_play[player_colision] = true;
 	        if(this.posGridJ == terra.posGridJ){
-	            this.y = real_y = terra.y + terra.width + 1;
+	            this.y = terra.y + terra.width + 1;
 	            this.speedY = 0;
 	            this.directionY = -1;
 	        }
-	        else if (this.posGridJ < terra.posGridJ && world.level[posGridI - 1][this.posGridJ].length == 0 || 
+	        else if (this.posGridJ < terra.posGridJ && world.level[this.posGridI - 1][this.posGridJ].length == 0 || 
 	        	(world.level[this.posGridI + 1][this.posGridJ].length > 0 &&
-	        	!(world.level[posGridI - 1][this.posGridJ][0].type == 'platform' || world.level[posGridI - 1][this.posGridJ][0].type == 'mysticalBox'))){
+	        	!(world.level[this.posGridI - 1][this.posGridJ][0].type == 'platform' || world.level[posGridI - 1][this.posGridJ][0].type == 'mysticalBox'))){
 	            this.x = terra.x - this.width - 1;
 	        }
-	        else if (this.posGridJ > terra.posGridJ && world.level[posGridI - 1][this.posGridJ].length == 0 || 
+	        else if (this.posGridJ > terra.posGridJ && world.level[this.posGridI - 1][this.posGridJ].length == 0 || 
 	        	(world.level[this.posGridI + 1][this.posGridJ].length > 0 &&
-	        	!(world.level[posGridI - 1][this.posGridJ][0].type == 'platform' || world.level[posGridI - 1][this.posGridJ][0].type == 'mysticalBox'))){
+	        	!(world.level[this.posGridI - 1][this.posGridJ][0].type == 'platform' || world.level[this.posGridI - 1][this.posGridJ][0].type == 'mysticalBox'))){
 	            this.x = terra.x + terra.width + 1;
 	        }
 	    }
