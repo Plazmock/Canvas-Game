@@ -143,7 +143,12 @@ class Player extends Physics{
 		}
 
 	}
-	getCoin(coin){};
+	getCoin(coin){
+		if(!coin.taken){
+			coin.taken = true;
+			world.coinsRemaining--;
+		}
+	};
 
 	die(){
 		// lives--
@@ -214,7 +219,7 @@ class Player extends Physics{
 							if (actor instanceof Enemy){
 								player.collideWEnemy(actor);
 							}
-							/*
+							
 							if (actor.type == 'coin'){
 								player.getCoin(actor);
 							}

@@ -15,6 +15,7 @@ class World {
 		this.tiles = null;
 		// level is [][][];
 		this.level = null;
+		this.coinsRemaining = null;
 	}
 
 	loadConfigFile(){
@@ -81,6 +82,7 @@ class World {
 
 
 	loadLayerInfo(mapFileAsXML){
+
 		this.level = new Array();	
 		for(var i = 0; i < this.map.height; i++ ) {
 			this.level[i] = new Array();
@@ -93,7 +95,7 @@ class World {
 		var layerByLines = mapFileAsXML.getElementsByTagName("data")[0].firstChild.textContent.split(/\r?\n/);
 		layerByLines.splice(0,1);
 
-
+		this.coinsRemaining = 0;
 		var sf = this.scaleFactor;
 		for(var i = 0; i < this.map.height; i++ ) {
 			var currLine = layerByLines[i].match(/\d+/g);
@@ -125,9 +127,10 @@ class World {
 						break;
 					case '5':
 						this.level[i][j][0] = new Coin(j*TILE, i*TILE, width, height, height, width, 0);
+						this.coinsRemaining++;
 						break;
 					case '6':
-						//this.level[i][j][0] = null;
+						this.level[i][j][0] = new Exit(j*TILE, i*TILE, width, height, height, width, "midClosed", 0);
 						break;
 					case '7':
 						this.level[i][j][0] = new Fly(j*TILE, i*TILE, width, height, height, width,0, 500, 1250, 110, 700);
