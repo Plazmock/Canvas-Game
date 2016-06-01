@@ -38,7 +38,7 @@ function main(){
 	document.getElementById("canvas").getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 	/*for(var i = 0; i < a.length; i++){
 		a[i].update(dt);
-		a[i].draw();
+		a[i].draw(dt);
 	}*/
 // level - > load next lvl if curr completed
 // menu ? 
@@ -48,14 +48,14 @@ function main(){
 				if( world.level[i][j][k] != null){
 					//console.log(world.level[i][j][k]);
 					world.level[i][j][k].update(dt);
-					world.level[i][j][k].draw();
+					world.level[i][j][k].draw(dt);
 				}
 			}
 		}
 	}	
 
 /*	
-	draw();
+	draw(dt);
 */
 	lastTime = now;
 	requestAnimFrame(main);
