@@ -15,7 +15,6 @@ class Exit extends CollisionBox{
 		} else {
 			this.drawarea.drawImage(Images["exit"]["topOpened"], this.x, this.y - world.map.tileheight+5, this.imgWidth, this.imgHeight);
 		}
-		console.log("asd");
 	}
 	
 }

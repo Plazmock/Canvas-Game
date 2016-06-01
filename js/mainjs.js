@@ -37,7 +37,6 @@ function main(){
 	dt = Math.min(dt, 1000.0 / 15);
 	
 	document.getElementById("canvas").getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-	console.log(world.coinsRemaining);
 
 // level - > load next lvl if curr completed
 // menu ? 
