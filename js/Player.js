@@ -144,13 +144,13 @@ class Player extends Physics{
 
 		// if player attack enemy from above
 		if (this.y + this.height < enemy.y + enemy.height){
-			console.log("Enemy dies");
+			//console.log("Enemy dies");
 			enemy.die();
 			//sound_events_to_play[player_jump] = true;
 			
 		}
 		else{
-			console.log("Player dies");
+			//console.log("Player dies");
 			this.die();
 		}
 
