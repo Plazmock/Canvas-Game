@@ -17,6 +17,8 @@ class World {
 		this.level = null;
 		this.backgroundLayer = new Array();
 		this.coinsRemaining = null;
+		this.levels = new Array();
+		this.coinsRemainingAtLevel = new Array();
 	}
 
 	loadConfigFile(){
@@ -36,18 +38,25 @@ class World {
 		if(this.currLevel > this.maxLevel){
 			alert("ERROR s02: currLevel > maxLevel. in world.loadLevel");
 		}else{
-			var nextLevelPath = this.arrayOfLevelPaths[this.currLevel];
-			//console.log(readFile(nextLevelPath, "text"));
-			var mapFileAsXML = parser.parseFromString(readFile(nextLevelPath, "text"), "application/xml");
-			//console.log(doc.getElementsByTagName("map")[0].attributes);
-			
-			this.loadMapInfo(mapFileAsXML);
-			//console.log(this.map);
-			this.loadTilesetInfo(mapFileAsXML);
-			this.loadLayerInfo(mapFileAsXML);
-			this.createBackgroundObjects();
-
-
+			var levelToLoad = 0;
+			while(levelToLoad <= this.maxLevel){
+				var nextLevelPath = this.arrayOfLevelPaths[levelToLoad];
+				//console.log(readFile(nextLevelPath, "text"));
+				var mapFileAsXML = parser.parseFromString(readFile(nextLevelPath, "text"), "application/xml");
+				//console.log(doc.getElementsByTagName("map")[0].attributes);
+				
+				this.loadMapInfo(mapFileAsXML);
+				//console.log(this.map);
+				this.loadTilesetInfo(mapFileAsXML);
+				this.loadLayerInfo(mapFileAsXML);
+				
+				this.levels[levelToLoad] = this.level;
+				this.coinsRemainingAtLevel[levelToLoad] = this.coinsRemaining;
+				levelToLoad++;
+			}
+		this.level = this.levels[this.currLevel];
+		this.coinsRemaining = this.coinsRemainingAtLevel[this.currLevel];
+		this.createBackgroundObjects();
 			//console.log(x.version.name);		
 			//this.map[x.version.name] = x.version.value;
 			//console.log(this.map.version);
@@ -70,7 +79,6 @@ class World {
 		} 
 		this.map.tilewidth *= this.scaleFactor;
 		this.map.tileheight *= this.scaleFactor;
-		TILE = this.map.tilewidth;
 		this.map['canvasWidth'] = this.map.width * this.map.tilewidth;
 		this.map['canvasHeight'] = this.map.height * this.map.tileheight;
 
@@ -116,26 +124,26 @@ class World {
 						//this.level[i][j][0] = null;
 						break;
 					case '1':							
-						this.level[i][j][0] = new Platform(j*TILE, i*TILE, width, height, height, width, "ground", 0);
+						this.level[i][j][0] = new Platform(j*this.map.tilewidth, i*this.map.tilewidth, width, height, height, width, "ground", 0);
 						break;
 					case '2':
-						this.level[i][j][0] = new Platform(j*TILE, i*TILE, width, height, height, width, "dirt", 0);
+						this.level[i][j][0] = new Platform(j*this.map.tilewidth, i*this.map.tilewidth, width, height, height, width, "dirt", 0);
 						break;
 					case '3':
-						this.level[i][j][0] = new Player(j*TILE, i*TILE, width, height, height, width,0,700,850,200,550,400);
+						this.level[i][j][0] = new Player(j*this.map.tilewidth, i*this.map.tilewidth, width, height, height, width,0,700,850,200,550,400);
 						break;
 					case '4':
-						this.level[i][j][0] = new Slime(j*TILE, (i+1)*TILE - height - 1, width, height, height, width,0, 500, 1250, 80, 600);
+						this.level[i][j][0] = new Slime(j*this.map.tilewidth, (i+1)*this.map.tilewidth - height - 1, width, height, height, width,0, 500, 1250, 80, 600);
 						break;
 					case '5':
-						this.level[i][j][0] = new Coin(j*TILE, i*TILE, width, height, height, width, 0);
+						this.level[i][j][0] = new Coin(j*this.map.tilewidth, i*this.map.tilewidth, width, height, height, width, 0);
 						this.coinsRemaining++;
 						break;
 					case '6':
-						this.level[i][j][0] = new Exit(j*TILE, i*TILE, width, height, height, width, "midClosed", 0);
+						this.level[i][j][0] = new Exit(j*this.map.tilewidth, i*this.map.tilewidth, width, height, height, width, "midClosed", 0);
 						break;
 					case '7':
-						this.level[i][j][0] = new Fly(j*TILE, i*TILE, width, height, height, width,0, 500, 1250, 110, 700);
+						this.level[i][j][0] = new Fly(j*this.map.tilewidth, i*this.map.tilewidth, width, height, height, width,0, 500, 1250, 110, 700);
 						break;
 				}
 			}
@@ -161,10 +169,19 @@ class World {
 		this.currLevel += 1;
 		if(this.currLevel > this.maxLevel){
 			alert("This was the final level, you win");
+		}else{	
+			this.level = this.levels[this.currLevel];
+			this.coinsRemaining = this.coinsRemainingAtLevel[this.currLevel];
+		}
+		/*
+		if(this.currLevel > this.maxLevel){
+			alert("This was the final level, you win");
 		}else{
 			this.loadLevel();
 		}
+		*/
 	}
+
 
 	createBackgroundObjects(){
 		this.backgroundLayer.push(new NonCollidable(0,0,1050,546,'background'));
