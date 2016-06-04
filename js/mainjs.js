@@ -43,6 +43,15 @@ function main(){
 	world.backgroundLayer[0].draw(dt);
 	for(var i = 0; i < world.map.height; i++ ) {
 		for(var j = 0; j < world.map.width; j++){
+			if(input.keyDown['n']) {
+				world.nextLevel();
+				console.log("nextLevel");
+				input.keyDown['n'] = false;
+			}
+			if(input.keyDown['c']){
+				world.coinsRemaining = 0;
+				input.keyDown['c'] = false;
+			}
 			world.level[i][j].forEach(function(obj){
 				obj.update(dt);
 				obj.draw(dt);

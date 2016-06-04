@@ -77,7 +77,6 @@ class Player extends Physics{
 	collideWTerrain(terra){
 		if(this.posGridI < terra.posGridI){
 	        if(this.posGridJ == terra.posGridJ){
-
 	            this.y = terra.y - this.height - 1;
 	            this.speedY = 0;
 	            this.directionY = 0;
