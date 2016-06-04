@@ -84,6 +84,12 @@ class Player extends Physics{
 	        if(this.posGridJ == terra.posGridJ){
 	            this.y = terra.y - this.height - 1;
 	            this.speedY = 0;
+	            if (this.directionX != 0) {
+	            	this.state = 'walk';
+	            }
+	            else{
+	            	this.state = 'still';
+	            } 
 	            this.directionY = 0;
 	        }
 	        else if (this.posGridJ < terra.posGridJ && 
@@ -150,6 +156,7 @@ class Player extends Physics{
 		if (this.y + this.height < enemy.y + enemy.height){
 			//console.log("Enemy dies");
 			enemy.die();
+			this.bounce();
 			//sound_events_to_play[player_jump] = true;
 			
 		}

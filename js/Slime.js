@@ -51,10 +51,14 @@ class Slime extends Enemy{
 
 		    if(posI + 1 < world.map['height'] && world.level[posI + 1][posJ + this.directionX].length > 0 && 
 		    	(world.level[posI + 1][posJ + this.directionX][0].type == 'platform' || world.level[posI + 1][posJ + this.directionX][0].type == 'mysticalBox')
-		          && world.level[posI + 1][posJ + this.directionX][0].y <= this.y + this.height + 1){
+		          && world.level[posI + 1][posJ + this.directionX][0].y <= this.y + this.height + 1
+		       ){
 		        terra = true;
 		    }
-		    if(!terra){
+		    if(!terra &&
+		    	((this.x <= world.level[posI + 1][posJ][0].x && this.directionX == -1)
+		          ||(this.x + this.width >= world.level[posI + 1][posJ][0].x + world.level[posI + 1][posJ][0].width && this.directionX == 1)
+		          )){
 		        this.directionX *= -1;
 		    }
 		}
