@@ -133,7 +133,7 @@ class World {
 						this.level[i][j][0] = new Player(j*this.map.tilewidth, i*this.map.tilewidth, width, height, height, width,0,700,850,200,550,400);
 						break;
 					case '4':
-						this.level[i][j][0] = new Slime(j*this.map.tilewidth, (i+1)*this.map.tilewidth - height - 1, width, height, height, width,0, 500, 1250, 80, 600);
+						this.level[i][j][0] = new Slime(j*this.map.tilewidth, (i+1)*this.map.tilewidth - height, width, height, height, width,0, 500, 1250, 80, 600);
 						break;
 					case '5':
 						this.level[i][j][0] = new Coin(j*this.map.tilewidth, i*this.map.tilewidth, width, height, height, width, 0);
@@ -143,7 +143,7 @@ class World {
 						this.level[i][j][0] = new Exit(j*this.map.tilewidth, i*this.map.tilewidth, width, height, height, width, "midClosed", 0);
 						break;
 					case '7':
-						this.level[i][j][0] = new Fly(j*this.map.tilewidth, i*this.map.tilewidth, width, height, height, width,0, 500, 1250, 110, 700);
+						this.level[i][j][0] = new Fly(j*this.map.tilewidth, i*this.map.tilewidth + height, width, height, height, width,0, 500, 1250, 110, 700);
 						break;
 				}
 			}
@@ -168,7 +168,8 @@ class World {
 	nextLevel(){
 		this.currLevel += 1;
 		if(this.currLevel > this.maxLevel){
-			alert("This was the final level, you win");
+			WON = true;
+			//alert("This was the final level, you win");
 		}else{	
 			this.level = this.levels[this.currLevel];
 			this.coinsRemaining = this.coinsRemainingAtLevel[this.currLevel];

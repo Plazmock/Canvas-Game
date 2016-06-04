@@ -1,9 +1,13 @@
 class Fly extends Enemy{
 	constructor(x,y,imgw,imgh,h,w,hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY){
 		super(x,y,imgw,imgh,h,w,'fly','fly',hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY);
-		this.posYBeg = y;
-		this.rangeSin = 90;
-		this.directionX = Math.random() - .5  < 0 ? -1 : 1; 
+		this.startingY = y;
+		this.directionX = Math.random() - .5  < 0 ? -1 : 1;
+		// Used for sin calculation ========
+		this.amplitude = 6;
+		this.period = 0.5;
+		this.timeSinceStart = 0;
+		// =================================
 	}
 	collideWTerrain(){
 	    var posI = this.getIPosition();
@@ -45,10 +49,12 @@ class Fly extends Enemy{
 	}
 	move(dt){
 		
-		super.move(dt);/*
+		super.move(dt);
+		this.timeSinceStart += dt;
 		if(!this.dead){
-			//mve sin
-		}*/
+			var offset = Math.cos(this.timeSinceStart * Math.PI*2 / this.period) * this.amplitude;
+			this.y = this.startingY - offset;
+		}
 	}
 
 }
