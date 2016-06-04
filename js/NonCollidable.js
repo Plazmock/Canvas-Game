@@ -1,6 +1,7 @@
 class NonCollidable extends Actor{
 	constructor(x,y,imgw,imgh,state) {
-		super.constructor(x,y,imgw,imgh,'nonCollidable',state);
+
+		super(x,y,imgw,imgh,'nonCollidable',state);
 	}
 	
 }

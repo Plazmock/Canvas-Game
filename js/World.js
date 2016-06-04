@@ -5,7 +5,7 @@ class World {
 		this.currLevel = currLevel;
 		this.maxLevel = 0;
 		this.scaleFactor = 0.6;
-		this.arrayOfLevelPaths = "";
+		this.arrayOfLevelPaths = null;
 		//console.log(levelsPath);
 		this.map = {
 			// example attribute after the map has been loaded
@@ -15,6 +15,7 @@ class World {
 		this.tiles = null;
 		// level is [][][];
 		this.level = null;
+		this.backgroundLayer = new Array();
 		this.coinsRemaining = null;
 	}
 
@@ -44,6 +45,7 @@ class World {
 			//console.log(this.map);
 			this.loadTilesetInfo(mapFileAsXML);
 			this.loadLayerInfo(mapFileAsXML);
+			this.createBackgroundObjects();
 
 
 			//console.log(x.version.name);		
@@ -162,6 +164,10 @@ class World {
 		}else{
 			this.loadLevel();
 		}
+	}
+
+	createBackgroundObjects(){
+		this.backgroundLayer.push(new NonCollidable(0,0,1050,546,'background'));
 	}	
 }
 

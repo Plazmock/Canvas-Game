@@ -122,7 +122,7 @@ class Player extends Physics{
 	        	(world.level[this.posGridI - 1][this.posGridJ].length == 0 || 
 	        	(world.level[this.posGridI - 1][this.posGridJ].length > 0 &&
 	        		!(world.level[this.posGridI - 1][this.posGridJ][0].type == 'platform' || 
-	        		world.level[posGridI - 1][this.posGridJ][0].type == 'mysticalBox')))){
+	        		world.level[this.posGridI - 1][this.posGridJ][0].type == 'mysticalBox')))){
 	            
 	            this.x = terra.x - this.width - 1;
 	        }
@@ -189,21 +189,18 @@ class Player extends Physics{
 				this.timeSinceLastFrame -= 0.075;
 			}	
 		} 
-		if(this.directionX === 1){
+		if(this.directionX === -1){
 			this.drawarea.save();
 			this.drawarea.scale(-1,1);
 			this.x *= -1;
 			this.x -= this.imgWidth;
 		}
-
 		super.draw(dt);
-
-		if(this.directionX === 1){
+		if(this.directionX === -1){
 			this.x += this.imgWidth;
 			this.x *= -1;
 			this.drawarea.restore();
 		}	
-			
 	}
 
 	

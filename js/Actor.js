@@ -13,24 +13,10 @@ class Actor {
 	}
 	draw(dt){
 
-	
-
-		if(this.type === 'player'){
-			this.drawarea.save();
-			this.drawarea.scale(-1,1);
-			this.x *= -1;
-			this.x -= this.imgWidth;
-		}
 		if(Images[this.type] && Images[this.type][this.state] && !Array.isArray(Images[this.type][this.state])) 
 			this.drawarea.drawImage(Images[this.type][this.state], this.x, this.y, this.imgWidth, this.imgHeight);
 		else if(Images[this.type] && Images[this.type][this.state] && Array.isArray(Images[this.type][this.state])) 
-			this.drawarea.drawImage(Images[this.type][this.state][this.frame % Images[this.type][this.state].length], this.x, this.y, this.imgWidth, this.imgHeight);
-		if(this.type === 'player'){
-			this.x += this.imgWidth;
-			this.x *= -1;
-			this.drawarea.restore();
-		}	
-			
+			this.drawarea.drawImage(Images[this.type][this.state][this.frame % Images[this.type][this.state].length], this.x, this.y, this.imgWidth, this.imgHeight);			
 	}
 	update(dt){
 

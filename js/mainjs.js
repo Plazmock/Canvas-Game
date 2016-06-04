@@ -34,12 +34,13 @@ var lastTime,a;
 function main(){
 	var now = Date.now();
 	var dt = (now - lastTime) / 1000.0;
-	dt = Math.min(dt, 1000.0 / 15);
+	dt = Math.min(dt, 1.0 / 15);
 	
 	document.getElementById("canvas").getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 
 // level - > load next lvl if curr completed
 // menu ? 
+	world.backgroundLayer[0].draw(dt);
 	for(var i = 0; i < world.map.height; i++ ) {
 		for(var j = 0; j < world.map.width; j++){
 			world.level[i][j].forEach(function(obj){
