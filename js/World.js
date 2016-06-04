@@ -183,10 +183,11 @@ class World {
 	}
 
 	restartGame(){
-		//WON = GAMEOVER = false;
+		WON = GAMEOVER = false;
 		Player.currentLives = Player.lives;
 		this.currLevel = 0;
 		this.loadLevel();
+		Player.coins = 0;
 
 	}
 
