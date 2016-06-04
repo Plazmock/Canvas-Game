@@ -6,9 +6,9 @@ menu
 pause
 Art/Art/menu/pause.png
 win
-Art/Art/menu/pause.png
+Art/Art/menu/win.png
 gameover
-Art/Art/menu/pause.png
+Art/Art/menu/gameover.png
 >
 hud
 Art/Art/HUD/hud_0.png
