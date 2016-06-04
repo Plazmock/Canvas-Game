@@ -47,5 +47,4 @@ class Physics extends CollisionBox{
 		this.directionY = 1;
 		this.speedY = Math.max(this.speedY / 2, this.maxSpeedY / 3);
 	}
-
 }

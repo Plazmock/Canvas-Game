@@ -22,6 +22,7 @@
 	<script src = "js/TextReader.js"></script>
 
 	<script src = "js/World.js"></script>
+	<script src = "js/Menu.js"></script>
 	<script src = "js/mainjs.js"></script>
 
 
@@ -32,16 +33,11 @@
 <script>
 	init();
 	lastTime = Date.now();
-	
-
-	//a = new Array();
-	//a[0] = new Player(100,460,65,90,80,60,0,1000,1250,300,700,630);
-	//accelerationX, accelerationY, maxSpeedX, maxSpeedY,jumpStartSpeed){
-	//a[1] = new Slime(150,30,43,28,0,0,0,0,0,0);
-	//a[2] = new Coin(0,100,40,40,0,0,0,0);
-	
-	
 	main();
 </script>
+<div>
+ <button type="button" onclick = "pauseplay()" >Play/Pause</button> 
+ <button type="button" >Restart</button>
+</div>
 </body>
 </html>

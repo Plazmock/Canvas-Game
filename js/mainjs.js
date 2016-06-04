@@ -44,11 +44,20 @@ function main(){
 	for(var i = 0; i < world.map.height; i++ ) {
 		for(var j = 0; j < world.map.width; j++){
 			world.level[i][j].forEach(function(obj){
-				obj.update(dt);
+				if(!PAUSED){
+					obj.update(dt);
+				}
 				obj.draw(dt);
 			});
 		}
+	}
+	drawHUD();
+	if(PAUSED){
+		drawPause();
 	}	
+	else if(WON || GAMEOVER){
+		drawFinal();
+	}
 
 /*	
 	draw(dt);
@@ -74,6 +83,12 @@ function loadImages(){
 			if(!Images[type]){
 				//console.log("type "+ type);
 				continue;
+			}
+			if (type == 'hud'){
+				for(var k = 0; k < 10; k++){
+					Images[type][k] = new Image();
+					Images[type][k].src = file[i++];	
+				}
 			}
 			while(file[i] != '>'){
 				state = file[i++];

@@ -2,12 +2,13 @@ class Player extends Physics{
 	constructor(x,y,imgw,imgh,h,w,hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY,jumpStartSpeed){
 		super(x,y,imgw,imgh,h,w,'player','still',hp, accelerationX, accelerationY, maxSpeedX, maxSpeedY);
 		this.jumpStartSpeed = jumpStartSpeed;
+		this.startX = x;
+		this.startY = y;
 		this.dead = false;
-		this.completelyDead = false;
 		this.timeSinceLastFrame = 0;
 	}
 	handleInput(){
-		if(this.dead)  return;
+		if(this.dead || WON || GAMEOVER)  return;
 		// MOVING X
 		if (input.keyDown['a'] || input.keyDown['arrowleft']){
 			if(input.keyPressed['d'] || input.keyPressed['arrowright']) {
@@ -159,20 +160,32 @@ class Player extends Physics{
 		if(!coin.taken){
 			coin.taken = true;
 			world.coinsRemaining--;
+			Player.coins ++;
 		}
 	};
 
 	die(){
-		// lives--
 		this.dead = true;
 		this.state = 'dead';
 		this.directionX = 0;
 		this.bounce();
+		Player.currentLives--;
+		if (Player.currentLives == 0){
+			GAMEOVER = true;
+		}
 	}
 	
 	update(dt){
 		this.handleInput();
 		this.move(dt);
+		if(this.y >= world.map['canvasHeight'] - this.height){ 
+			this.x = this.startX;
+			this.y = this.startY;
+			this.speedY = 0;
+			this.directionY = 0;
+			this.state = 'still';
+			this.dead = false;
+		}
 		this.checkCollisions();
 		this.updateSpeed(dt);
 		this.updateGridPosition();
@@ -247,7 +260,6 @@ class Player extends Physics{
 		}
 		else{
 			var debug = 0;
-
 		}
 	    //check for any floor (not necessarily stable)
 	    //
@@ -256,17 +268,14 @@ class Player extends Physics{
 
 	    var floor = null;
 	    if(posI + 1 < world.map['height'] && world.level[posI + 1][posJ].length > 0 && (world.level[posI + 1][posJ][0].type == 'platform' || world.level[posI + 1][posJ][0].type == 'mysticalBox')
-	            && world.level[posI + 1][posJ][0].y <= this.y + this.height + 1)
-	    {
+	            && world.level[posI + 1][posJ][0].y <= this.y + this.height + 1){
 	        floor = world.level[posI + 1][posJ][0];
 	    }
-	    if(!floor && this.directionY == 0)
-	    {
+	    if(!floor && this.directionY == 0){
 	        this.speedY = 0;
 	        this.directionY = -1;
 	    }
-	    else if (floor)
-	    {
+	    else if (floor){
 	        this.y = floor.y - this.height - 1;
 	        this.speedY = 0;
 	    }
@@ -275,3 +284,6 @@ class Player extends Physics{
 }
 
 Images['player'] = new Array();
+Player.lives = 3;
+Player.coins = 0;
+Player.currentLives = Player.lives;
