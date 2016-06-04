@@ -52,6 +52,11 @@ function main(){
 				world.coinsRemaining = 0;
 				input.keyDown['c'] = false;
 			}
+			if(input.keyDown['q']) {
+				world.restartGame();
+				console.log("restartGame");
+				input.keyDown['q'] = false;
+			}
 			world.level[i][j].forEach(function(obj){
 				if(!PAUSED){
 					obj.update(dt);

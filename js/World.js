@@ -182,6 +182,14 @@ class World {
 		*/
 	}
 
+	restartGame(){
+		//WON = GAMEOVER = false;
+		Player.currentLives = Player.lives;
+		this.currLevel = 0;
+		this.loadLevel();
+
+	}
+
 
 	createBackgroundObjects(){
 		this.backgroundLayer.push(new NonCollidable(0,0,1050,546,'background'));
