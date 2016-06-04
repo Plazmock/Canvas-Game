@@ -8,6 +8,8 @@ class Player extends Physics{
 		this.timeSinceLastFrame = 0;
 	}
 	handleInput(){
+
+
 		if(this.dead || WON || GAMEOVER)  return;
 		// MOVING X
 		// handle left / 'a'
@@ -187,6 +189,7 @@ class Player extends Physics{
 	
 	update(dt){
 		this.handleInput();
+
 		this.move(dt);
 		if(this.y >= world.map['canvasHeight'] - this.height){ 
 			this.x = this.startX;
@@ -297,3 +300,10 @@ Images['player'] = new Array();
 Player.lives = 3;
 Player.coins = 0;
 Player.currentLives = Player.lives;
+
+function collideWSpring(){
+	// this.spring should be set if player jumps on a spring
+	this.speedY = this.jumpStartSpeed * 1.8;
+	// change state of spring ==============
+	
+}

@@ -13,12 +13,13 @@ class Physics extends CollisionBox{
 
 		this.speed = Math.min(this.speed + this.accelerationX*dt,this.maxSpeedX);
 		this.speedY -= this.directionY*this.accelerationY*dt;
-		if (this.speedY > this.maxSpeedY) 
+		if (this.speedY > this.maxSpeedY && this.directionY < 0) 
 			this.speedY = this.maxSpeedY;
 		if (this.speedY < 0) {
 			this.directionY = -1;
 			this.speedY = 0;
 		}
+		
 
 	}
 	move(dt){

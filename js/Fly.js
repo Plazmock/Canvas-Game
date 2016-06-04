@@ -44,6 +44,7 @@ class Fly extends Enemy{
 
 	}
 	move(dt){
+		
 		super.move(dt);/*
 		if(!this.dead){
 			//mve sin
