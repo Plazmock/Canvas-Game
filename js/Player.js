@@ -10,9 +10,12 @@ class Player extends Physics{
 	handleInput(){
 		if(this.dead || WON || GAMEOVER)  return;
 		// MOVING X
+		// handle left / 'a'
 		if (input.keyDown['a'] || input.keyDown['arrowleft']){
 			if(input.keyPressed['d'] || input.keyPressed['arrowright']) {
 				input.keyDown['a'] = input.keyDown['arrowleft'] = false;
+				// SAMIR TODO: input.keyDown['d'] = input.keyDown['arrowright'] = false;
+
 			}
 			else if(!(input.keyPressed['a'] || input.keyPressed['arrowleft'])){
 				this.directionX = -1;
@@ -24,7 +27,8 @@ class Player extends Physics{
 			if(input.keyDown['a']) {input.keyPressed['a'] = true;}
 			if(input.keyDown['arrowleft']) {input.keyPressed['arrowleft'] = true;}
 
-		}	
+		}
+		// handle right / 'd'
 		if (input.keyDown['d'] || input.keyDown['arrowright']){
 			if(input.keyPressed['a'] || input.keyPressed['arrowleft']) {
 				input.keyDown['d'] = input.keyDown['arrowright'] = false;
