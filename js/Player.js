@@ -265,9 +265,14 @@ class Player extends Physics{
 								//end_level = true;
 								world.nextLevel();
 							}
-							else if (actor.type == "spring" && player.directionY == -1){
-								player.collideWSpring();
+							else if (actor.type == "spring" && player.directionY == -1 && actor.state == "up"){
+								actor.changeToDownState();
 							}
+							if (actor.type == "spring" && player.directionY == -1 && actor.canBaunce == true ){
+								player.collideWSpring();
+								actor.canBaunce = false;
+							}
+								
 						}
 					});
 		        }
@@ -295,6 +300,7 @@ class Player extends Physics{
 
 	collideWSpring(){
 		// this.spring should be set if player jumps on a spring
+		this.directionY = 1;
 		this.speedY = this.jumpStartSpeed * 1.8;
 		// change state of spring ==============
 	}
