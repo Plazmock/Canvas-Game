@@ -1,8 +1,8 @@
 class Cloud extends NonCollidable{
 	constructor(x,y,imgw,imgh,type,state) {
 		super(x,y,imgw,imgh,type,state);
-		this.frame = Math.floor((Images['nonCollidable']['cloud'].length-1)*Math.random());
-		this.speed = Math.random()*55 + 15
+		this.frame = Math.floor( (Math.random()* 1000) % Images['nonCollidable']['cloud'].length);
+		this.speed = Math.random()*55 + 10;
 		var scale = Math.random() + 0.1;
 		this.startHeight = imgh;
 		this.startWidth = imgw;
@@ -19,7 +19,8 @@ class Cloud extends NonCollidable{
 		}
 	}
 	generateNew(){
-		this.frame = Math.floor((Images['nonCollidable']['cloud'].length-1)*Math.random());
+		this.frame = Math.floor( (Math.random()* 1000) % Images['nonCollidable']['cloud'].length);
+		this.speed = Math.random()*55 + 10;
 		var scale = Math.random() + 0.1;
 		this.imgHeight = this.startHeight * scale;
 		this.imgWidth = this.startWidth * scale;

@@ -1,11 +1,9 @@
 nonCollidable
 background
 Art/Art/backgrounds/cosmos.png
->
 cloud
-4
+3
 Art/Art/backgrounds/cloud1.png
-Art/Art/backgrounds/cloud2.png
 Art/Art/backgrounds/cloud3.png
 Art/Art/backgrounds/cloud4.png
 >
