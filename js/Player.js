@@ -15,11 +15,11 @@ class Player extends Physics{
 		// handle left / 'a'
 		if (input.keyDown['a'] || input.keyDown['arrowleft']){
 			if(input.keyPressed['d'] || input.keyPressed['arrowright']) {
-				input.keyDown['a'] = input.keyDown['arrowleft'] = false;
-				// SAMIR TODO: input.keyDown['d'] = input.keyDown['arrowright'] = false;
+				input.keyDown['d'] = input.keyDown['arrowright'] 
+				= input.keyPressed['d'] = input.keyPressed['arrowright'] = false;
 
 			}
-			else if(!(input.keyPressed['a'] || input.keyPressed['arrowleft'])){
+			if(!(input.keyPressed['a'] || input.keyPressed['arrowleft'])){
 				this.directionX = -1;
 				this.speed = 0;
 				if(this.directionY == 0){
@@ -33,9 +33,10 @@ class Player extends Physics{
 		// handle right / 'd'
 		if (input.keyDown['d'] || input.keyDown['arrowright']){
 			if(input.keyPressed['a'] || input.keyPressed['arrowleft']) {
-				input.keyDown['d'] = input.keyDown['arrowright'] = false;
+				input.keyDown['a'] = input.keyDown['arrowleft']
+				= input.keyPressed['a'] = input.keyPressed['arrowleft'] = false;
 			}
-			else if(!(input.keyPressed['d'] || input.keyPressed['arrowright'])){
+			if(!(input.keyPressed['d'] || input.keyPressed['arrowright'])){
 				this.directionX = 1;
 				this.speed = 0;
 				if(this.directionY == 0){
