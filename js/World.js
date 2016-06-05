@@ -156,7 +156,7 @@ class World {
 							width, height, height, width, "up", 0);
 						break;
 					case '9':
-						this.level[i][j][0] = new Spikes(j*this.map.tilewidth, i*this.map.tilewidth, width, height, height, width, "up", 0);
+						this.level[i][j][0] = new Spikes(j*this.map.tilewidth, (i+1)*this.map.tilewidth - height, width, height, height, width, "up", 0);
 				}
 			}
 		}

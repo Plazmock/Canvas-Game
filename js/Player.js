@@ -273,7 +273,7 @@ class Player extends Physics{
 								player.collideWSpring();
 								actor.canBaunce = false;
 							}
-							if (actor.type == 'spikes' && player.directionY == -1) {
+							if (actor.type == 'spikes' ) {
 								player.die();
 							}
 						}
