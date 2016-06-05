@@ -3,3 +3,8 @@ Maps/level_2.tmx
 Maps/level_3.tmx
 Maps/level_4.tmx
 Maps/level_5.tmx
+Maps/level_6.tmx
+Maps/level_7.tmx
+Maps/level_8.tmx
+Maps/level_9.tmx
+Maps/level_10.tmx

@@ -3,6 +3,9 @@ class Platform extends CollisionBox{
 		super(x,y,imgw,imgh,h,w,'platform',state,hp);
 	}	
 	update(dt){};
+	draw(dt){
+		super.draw(dt);
+	}
 	
 }
 Images['platform'] = new Array();
