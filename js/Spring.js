@@ -1,7 +1,7 @@
 class Spring extends CollisionBox{
 	constructor(x,y,imgw,imgh,h,w,state,hp){
 		super(x,y,imgw,imgh,h,w,'spring',state,hp);
-		this.cooldown = 0.05d;
+		this.cooldown = 0.05;
 		this.cooldownRemaining = this.cooldown;
 		this.canBaunce = false;
 	}	
