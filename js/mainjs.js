@@ -35,7 +35,12 @@ function main(){
 	
 	document.getElementById("canvas").getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 	var player = null;
-	world.backgroundLayer[0].draw(dt);
+
+	world.backgroundLayer.forEach(function(obj){
+		obj.update(dt);
+		obj.draw(dt);
+	});
+	
 	for(var i = 0; i < world.map.height; i++ ) {
 		for(var j = 0; j < world.map.width; j++){
 			
@@ -81,14 +86,13 @@ function loadImages(){
 			return;
 		}
 		var type = "";
-		var state ="";
+		var state = "";
 		var i = 0;
 		while (i < file.length) {
 			type = file[i++];
 			if (type == 'enemy')
 				type = file[i++];	
 			if(!Images[type]){
-				//console.log("type "+ type);
 				continue;
 			}
 			if (type == 'hud'){

@@ -205,6 +205,10 @@ class World {
 
 	createBackgroundObjects(){
 		this.backgroundLayer.push(new NonCollidable(0,0,1050,546,'background'));
+		this.backgroundLayer.push(new Cloud(0,0,500,230,'cloud'));
+		this.backgroundLayer.push(new Cloud(0,0,500,230,'cloud'));
+		this.backgroundLayer.push(new Cloud(0,0,500,246,'cloud'));
+
 	}	
 }
 
