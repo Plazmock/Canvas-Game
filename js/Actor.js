@@ -24,4 +24,4 @@ class Actor {
 
 }
 Images = new Array();
-
+Sounds = new Array();

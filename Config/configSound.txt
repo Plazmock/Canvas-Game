@@ -2,11 +2,11 @@ coin
 Sound/coin.ogg
 jump
 Sound/backtolive.ogg
-dead
-Sound/Coin01.ogg
-colision
+kill
+Sound/jump_09.wav
+collision
 Sound/doh.ogg
 exit
 Sound/Exit.ogg
-music
-Sound/loop1.ogg
+background
+Sound/Boss-Theme.mp3

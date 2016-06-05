@@ -11,23 +11,20 @@ var requestAnimFrame = (function(){
 
 function init(){// create world, load media, start main
 	loadImages();
+	loadSounds()
 	initWorld();
-	//loadSounds();
-	// new world
-
+	//Sounds['background'].play()
+	Sounds['background'].addEventListener('ended', function() {
+    	this.currentTime = 0;
+    	this.play();
+	}, false);
 }
 
 function initWorld(){
 	// Create a World object path to the file, that keeps the paths to all the levels.
 	world = new World("Config//configLevels.txt", 0);
 	world.loadConfigFile();
-	world.loadLevel();
-	// TestFileReading
-	/*
-	fr = new TextReader();
-	fr.readFile("Config//configLevels.txt");
-	*/
-		
+	world.loadLevel();	
 }
 
 var lastTime,a;
@@ -37,9 +34,7 @@ function main(){
 	dt = Math.min(dt, 1.0 / 15);
 	
 	document.getElementById("canvas").getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-
-// level - > load next lvl if curr completed
-// menu ? 
+	var player = null;
 	world.backgroundLayer[0].draw(dt);
 	for(var i = 0; i < world.map.height; i++ ) {
 		for(var j = 0; j < world.map.width; j++){
@@ -58,13 +53,23 @@ function main(){
 				input.keyDown['q'] = false;
 			}
 			world.level[i][j].forEach(function(obj){
-				if(!PAUSED){
+				if(!PAUSED && obj.type!='player'){
 					obj.update(dt);
 				}
-				obj.draw(dt);
+				if(obj.type!='player'){
+					obj.draw(dt);
+				}
+				else{
+					player = obj;
+				}
+
 			});
 		}
 	}
+	if(!PAUSED){
+		player.update(dt);
+	}
+	player.draw(dt);
 	drawHUD();
 	if(PAUSED){
 		drawPause();
@@ -73,9 +78,6 @@ function main(){
 		drawFinal();
 	}
 
-/*	
-	draw(dt);
-*/
 	lastTime = now;
 	requestAnimFrame(main);
 }
@@ -128,4 +130,23 @@ function loadImages(){
 	}catch(err){
 		console.log("Could not load images!\n" + err.message);
 	}
-} 
+}
+
+function loadSounds(){
+	try{
+		var file = readFile("Config/configSound.txt", "arrayOfLines");
+		if (!file){
+			console.log("Cannot load sounds");
+			return;
+		}
+		var event,src;
+		for(var i = 0; i < file.length; i+=2){
+			event = file[i];
+			src = file[i+1];
+			Sounds[event] = new Audio(src);
+		}
+
+	}catch(err){
+		console.log("Could not load sounds!\n" + err.message);
+	}
+}

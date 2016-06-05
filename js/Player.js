@@ -71,6 +71,7 @@ class Player extends Physics{
 		if (input.keyDown['w'] || input.keyDown['arrowup']){
 			//if(!(input.keyPressed['w'] || input.keyPressed['arrowup'])){
 			if(this.directionY == 0){
+				Sounds['jump'].play();
 				this.directionY = 1;
 				this.speedY = this.jumpStartSpeed;
 				this.state = 'jump';
@@ -156,10 +157,9 @@ class Player extends Physics{
 
 		// if player attack enemy from above
 		if (this.y + this.height < enemy.y + enemy.height){
-			//console.log("Enemy dies");
+			Sounds['kill'].play();
 			enemy.die();
 			this.bounce();
-			//sound_events_to_play[player_jump] = true;
 			
 		}
 		else{
@@ -170,6 +170,7 @@ class Player extends Physics{
 	}
 	getCoin(coin){
 		if(!coin.taken){
+			Sounds['coin'].play();
 			coin.taken = true;
 			world.coinsRemaining--;
 			Player.coins ++;
@@ -177,6 +178,7 @@ class Player extends Physics{
 	};
 
 	die(){
+		Sounds['collision'].play();
 		this.dead = true;
 		this.state = 'dead';
 		this.directionX = 0;
@@ -211,7 +213,6 @@ class Player extends Physics{
 			if(this.timeSinceLastFrame > 0.075){
 				this.frame += 1;
 				this.frame %= Images['player'][this.state].length;
-				//console.log(this.frame);
 				this.timeSinceLastFrame -= 0.075;
 			}	
 		} 
@@ -260,7 +261,7 @@ class Player extends Physics{
 							}
 	
 							if (actor.type == 'exit' && world.coinsRemaining <= 0){
-								//sound_events_to_play[exit_door] = true;
+								Sounds['exit'].play();
 								//end_level = true;
 								world.nextLevel();
 							}
@@ -294,16 +295,15 @@ class Player extends Physics{
 	    }
 	}
 
+	collideWSpring(){
+		// this.spring should be set if player jumps on a spring
+		this.speedY = this.jumpStartSpeed * 1.8;
+		// change state of spring ==============
+	}
 }
 
 Images['player'] = new Array();
+Sounds = new Array();
 Player.lives = 3;
 Player.coins = 0;
 Player.currentLives = Player.lives;
-
-function collideWSpring(){
-	// this.spring should be set if player jumps on a spring
-	this.speedY = this.jumpStartSpeed * 1.8;
-	// change state of spring ==============
-	
-}
