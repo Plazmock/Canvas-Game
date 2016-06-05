@@ -44,6 +44,9 @@ class CollisionBox extends Actor {
             this.posGridJ = newGridJ;
             return true;
 	    }
+	    else{
+	    	console.log("WTF");
+	    }
 	    return false;
 	}
 }

@@ -38,25 +38,12 @@ function main(){
 	world.backgroundLayer[0].draw(dt);
 	for(var i = 0; i < world.map.height; i++ ) {
 		for(var j = 0; j < world.map.width; j++){
-			if(input.keyDown['n']) {
-				world.nextLevel();
-				console.log("nextLevel");
-				input.keyDown['n'] = false;
-			}
-			if(input.keyDown['c']){
-				world.coinsRemaining = 0;
-				input.keyDown['c'] = false;
-			}
-			if(input.keyDown['q']) {
-				world.restartGame();
-				console.log("restartGame");
-				input.keyDown['q'] = false;
-			}
+			
 			world.level[i][j].forEach(function(obj){
-				if(!PAUSED && obj.type!='player'){
+				if(!PAUSED && obj.type != 'player'){
 					obj.update(dt);
 				}
-				if(obj.type!='player'){
+				if(obj.type != 'player'){
 					obj.draw(dt);
 				}
 				else{
@@ -66,11 +53,15 @@ function main(){
 			});
 		}
 	}
-	if(!PAUSED){
+	if(!PAUSED && player){
 		player.update(dt);
 	}
-	player.draw(dt);
+	if (player){
+		player.draw(dt);
+	}
+
 	drawHUD();
+
 	if(PAUSED){
 		drawPause();
 	}	
@@ -121,7 +112,6 @@ function loadImages(){
 						Images[type][state][k] = new Image();
 						Images[type][state][k].src = file[i++];
 					}
-					//console.log(file[i]);
 				}
 			}
 			i++;

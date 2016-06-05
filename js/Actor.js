@@ -12,7 +12,6 @@ class Actor {
 		this.drawarea = (document.getElementById("canvas")).getContext("2d");
 	}
 	draw(dt){
-
 		if(Images[this.type] && Images[this.type][this.state] && !Array.isArray(Images[this.type][this.state])) 
 			this.drawarea.drawImage(Images[this.type][this.state], this.x, this.y, this.imgWidth, this.imgHeight);
 		else if(Images[this.type] && Images[this.type][this.state] && Array.isArray(Images[this.type][this.state])) 
@@ -24,4 +23,3 @@ class Actor {
 
 }
 Images = new Array();
-Sounds = new Array();

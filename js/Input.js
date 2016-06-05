@@ -19,6 +19,23 @@ document.addEventListener('keydown', function(e) {
 
 	input.keyDown[key] = true;
 	input.keyUp[key] = false;
+
+//	cheat codes
+
+	if(input.keyDown['n']) {
+		world.nextLevel();
+		console.log("nextLevel");
+		input.keyDown['n'] = false;
+	}
+	if(input.keyDown['c']){
+		world.coinsRemaining = 0;
+		input.keyDown['c'] = false;
+	}
+	if(input.keyDown['q']) {
+		world.restartGame();
+		console.log("restartGame");
+		input.keyDown['q'] = false;
+	}
 });
 document.addEventListener('keyup', function(e) {
 	var key = e.key.toLowerCase();

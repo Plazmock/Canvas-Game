@@ -238,11 +238,13 @@ class Player extends Physics{
 		var posJ = this.getJPosition();
     	var collide = false;
 
+    	if(this.dead) return;
 	    // check if collide with close objects
-	    if(!this.dead){
+	   // if(!this.dead){
 		    for (var i = posI - 1; i <= posI + 1; i++){
 		        for(var j = posJ - 1; j <= posJ + 1; j++){
 		            if (i < 0 || i >= world.map['height'] || j < 0 || j >= world.map['width']) {continue;} // world ' out of bounds ' ?
+		            if(this.dead) return;
 					var player = this;
 					world.level[i][j].forEach(function(actor){
 						if (player.dead) {
@@ -270,7 +272,7 @@ class Player extends Physics{
 					});
 		        }
 		    }
-		}
+		//}
 	    //check for any floor (not necessarily stable)
 	    //
 
