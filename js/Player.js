@@ -263,7 +263,7 @@ class Player extends Physics{
 							}
 							else if (actor.type == 'exit' && world.coinsRemaining <= 0){
 								Sounds['exit'].play();
-								//end_level = true;
+								player.state = 'still';
 								world.nextLevel();
 							}
 							else if (actor.type == "spring" && player.directionY == -1 && actor.state == "up"){
