@@ -251,28 +251,24 @@ class Player extends Physics{
 							if (actor.type == 'platform'){
 								player.collideWTerrain(actor);
 							}
-							if (actor instanceof Enemy){
+							else if (actor instanceof Enemy){
 								player.collideWEnemy(actor);
 							}
-							
-							if (actor.type == 'coin'){
+							else if (actor.type == 'coin'){
 								player.getCoin(actor);
 							}
-	
-							if (actor.type == 'exit' && world.coinsRemaining <= 0){
+							else if (actor.type == 'exit' && world.coinsRemaining <= 0){
 								//sound_events_to_play[exit_door] = true;
 								//end_level = true;
 								world.nextLevel();
 							}
-	
+							else if (actor.type == "spring" && player.directionY == -1){
+								player.collideWSpring();
+							}
 						}
-						
 					});
 		        }
 		    }
-		}
-		else{
-			var debug = 0;
 		}
 	    //check for any floor (not necessarily stable)
 	    //

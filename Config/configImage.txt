@@ -94,3 +94,9 @@ Art/Art/enemies/fly_fly.png
 dead
 Art/Art/enemies/fly_dead.png
 >
+spring
+up
+Art/Art/tiles/springboardUp.png
+down
+Art/Art/tiles/springboardDown.png
+>

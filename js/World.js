@@ -145,6 +145,16 @@ class World {
 					case '7':
 						this.level[i][j][0] = new Fly(j*this.map.tilewidth, i*this.map.tilewidth + height, width, height, height, width,0, 500, 1250, 110, 700);
 						break;
+					case '8':
+						var scale = 0.7;
+						width *= scale;
+						height *= scale;
+						//this.y = this.y - world.map.tileheight + this.h;
+						//this.x = this.x + world.map.tilewidth/2 - this.w/2;
+						this.level[i][j][0] = new Spring((j*this.map.tilewidth)  + world.map.tileheight/2 - width/2, 
+							(i+1)*this.map.tilewidth - height, 
+							width, height, height, width, "up", 0);
+					break;
 				}
 			}
 		}
