@@ -154,7 +154,9 @@ class World {
 						this.level[i][j][0] = new Spring((j*this.map.tilewidth)  + world.map.tileheight/2 - width/2, 
 							(i+1)*this.map.tilewidth - height, 
 							width, height, height, width, "up", 0);
-					break;
+						break;
+					case '9':
+						this.level[i][j][0] = new Spikes(j*this.map.tilewidth, i*this.map.tilewidth, width, height, height, width, "up", 0);
 				}
 			}
 		}

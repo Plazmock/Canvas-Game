@@ -15,7 +15,7 @@ class Slime extends Enemy{
 	            if (i < 0 || i >= world.map['height'] || j < 0 || j >= world.map['width']) continue; // world ' out of bounds ' ?
 	            var slime = this;
 				world.level[i][j].forEach(function(terra){
-					if ((terra.type == 'platform' || terra.type == 'mysticalBox') && slime.overlap(terra))
+					if ((terra.type == 'platform' || terra.type == 'spikes'|| terra.type == 'mysticalBox') && slime.overlap(terra))
 					{
 						if(slime.posGridI < terra.posGridI && slime.posGridJ == terra.posGridJ)
 						{
@@ -50,8 +50,8 @@ class Slime extends Enemy{
 		    }
 
 		    if(posI + 1 < world.map['height'] && world.level[posI + 1][posJ + this.directionX].length > 0 && 
-		    	(world.level[posI + 1][posJ + this.directionX][0].type == 'platform' || world.level[posI + 1][posJ + this.directionX][0].type == 'mysticalBox')
-		          && world.level[posI + 1][posJ + this.directionX][0].y <= this.y + this.height + 1
+		    	(world.level[posI + 1][posJ + this.directionX][0].type == 'platform' || world.level[posI + 1][posJ + this.directionX][0].type == 'spikes' || world.level[posI + 1][posJ + this.directionX][0].type == 'mysticalBox')
+		          && world.level[posI + 1][posJ + this.directionX][0].y <= this.y + this.height + 1 
 		       ){
 		        terra = true;
 		    }
